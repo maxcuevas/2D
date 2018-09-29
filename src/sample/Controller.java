@@ -5,35 +5,28 @@ import javafx.scene.control.Button;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
-import java.util.HashSet;
-import java.util.Set;
-
 
 public class Controller {
 
     public Canvas gameCanvas;
-
     public Button startButton;
-
+    private GameLoop gameLoop = new GameLoop();
 
     public void handleClick(MouseEvent mouseEvent) {
-
-
-        Thread thread = new Thread(new testRunnable(gameCanvas));
-
-        thread.start();
-
+        if (!gameLoop.isRunning()){
+            gameLoop.setRunning(true);
+            gameLoop.setCanvas(gameCanvas);
+            Thread thread = new Thread(gameLoop);
+            thread.start();
+        }
 
     }
 
     public void handleKeyDown(KeyEvent keyEvent) {
-
-
-        startButton.setText(keyEvent.getText());
-        testRunnable.keysDown.add(keyEvent.getText());
+        gameLoop.readInput(keyEvent.getText());
     }
 
     public void handleKeyUp(KeyEvent keyEvent) {
-        testRunnable.keysDown.remove(keyEvent.getText());
+        gameLoop.clearInput(keyEvent.getText());
     }
 }

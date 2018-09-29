@@ -6,56 +6,52 @@ import javafx.scene.paint.Color;
 
 public class FPS {
 
-    private static long timeStart;
-    private static long timeEnd;
-    private static final long xPos = 20;
-    private static final long yPos = 20;
-    public static final boolean frameCapped = true;
+    private  long timeStart = System.currentTimeMillis();
+    private long timeEnd = System.currentTimeMillis();
+    private final long xPos = 20;
+    private final long yPos = 20;
+    public final boolean isCapped = true;
+    private final double fps60 = 1000/60;
 
-    private static final double frameCount = 60;
 
-    public static void setTimeStart() {
+    public void setTimeStart() {
 
         timeStart = System.currentTimeMillis();
     }
 
-    public static void setTimeEnd() {
+    public void setTimeEnd() {
         timeEnd = System.currentTimeMillis();
-
+        delayTime();
     }
 
-    private static long getTimeWait(){
+    private void delayTime() {
+        if (isCapped){
+            try {
+                Thread.sleep(getWaitTime());
+                timeEnd = System.currentTimeMillis();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
 
-        return (long) (getTimePerFrame() - getElapsedTime());
-
+        }
     }
 
-    private static double getElapsedTime(){
+    private long getWaitTime() {
+        return (long) (getElapsedTime() > fps60 ? 0: fps60 - getElapsedTime());
+    }
+
+    public long getElapsedTime() {
         return timeEnd - timeStart;
     }
 
-    private static double getTimePerFrame(){
-        return 1/frameCount;
-    }
 
-
-
-
-
-    public static void renderFPS(GraphicsContext graphicsContext) {
+    public void renderFPS(GraphicsContext graphicsContext){
         graphicsContext.setFill(Color.BLACK);
         graphicsContext.fillText("FPS: " + getFramePerSecond(), xPos, yPos);
-
     }
 
-    private static int getFramePerSecond() {
-
-        if (frameCapped){
-            setTimeEnd();
-
-        }
-
-        return (int) (1 / ((timeEnd - timeStart) * 1e-3));
+    private int getFramePerSecond()  {
+        return (int) (1e3 / getElapsedTime());
     }
 
 
