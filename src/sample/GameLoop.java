@@ -33,38 +33,19 @@ public class GameLoop implements Runnable {
 
 
         while (true) {
-
-            character.clearVelocities();
-
-            if (keysDown.contains("s")) {
-                character.setVelocityYPos();
-            }
-            if (keysDown.contains("w")) {
-                character.setVelocityYNeg();
-            }
-            if (keysDown.contains("a")) {
-                character.setVelocityXNeg();
-            }
-            if (keysDown.contains("d")) {
-                character.setVelocityXPos();
-            }
-
-            character.render(graphicsContext, fps.getElapsedTime());
-
-
             fps.setTimeStart();
 
 
-            try {
-                Thread.sleep(10);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            character.clearVelocities();
+            character.readInput(keysDown);
+
+
             fps.setTimeEnd();
 
 
             clearScreen();
             fps.renderFPS(graphicsContext);
+            character.render(graphicsContext, fps.getElapsedTime());
 
         }
     }

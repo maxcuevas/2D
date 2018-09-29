@@ -2,6 +2,8 @@ package sample;
 
 import javafx.scene.canvas.GraphicsContext;
 
+import java.util.Set;
+
 
 public class Block {
 
@@ -55,5 +57,21 @@ public class Block {
     public void clearVelocities(){
         resetVelocityX();
         resetVelocityY();
+    }
+
+    public void readInput(Set<String> keysDown) {
+
+        if (keysDown.contains("s")) {
+            setVelocityYPos();
+        }
+        if (keysDown.contains("w")) {
+            setVelocityYNeg();
+        }
+        if (keysDown.contains("a")) {
+            setVelocityXNeg();
+        }
+        if (keysDown.contains("d")) {
+            setVelocityXPos();
+        }
     }
 }

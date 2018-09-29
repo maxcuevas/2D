@@ -6,13 +6,17 @@ import javafx.scene.paint.Color;
 
 public class FPS {
 
-    private  long timeStart = System.currentTimeMillis();
-    private long timeEnd = System.currentTimeMillis();
+    private long timeStart;
+    private long timeEnd;
     private final long xPos = 20;
     private final long yPos = 20;
     public final boolean isCapped = true;
-    private final double fps60 = 1000/60;
+    private final double fps60 = 1000 / 60;
 
+    public FPS(){
+        timeStart = System.currentTimeMillis();
+        timeEnd = System.currentTimeMillis();
+    }
 
     public void setTimeStart() {
 
@@ -25,7 +29,7 @@ public class FPS {
     }
 
     private void delayTime() {
-        if (isCapped){
+        if (isCapped) {
             try {
                 Thread.sleep(getWaitTime());
                 timeEnd = System.currentTimeMillis();
@@ -37,7 +41,7 @@ public class FPS {
     }
 
     private long getWaitTime() {
-        return (long) (getElapsedTime() > fps60 ? 0: fps60 - getElapsedTime());
+        return (long) (getElapsedTime() > fps60 ? 0 : fps60 - getElapsedTime());
     }
 
     public long getElapsedTime() {
@@ -45,12 +49,12 @@ public class FPS {
     }
 
 
-    public void renderFPS(GraphicsContext graphicsContext){
+    public void renderFPS(GraphicsContext graphicsContext) {
         graphicsContext.setFill(Color.BLACK);
         graphicsContext.fillText("FPS: " + getFramePerSecond(), xPos, yPos);
     }
 
-    private int getFramePerSecond()  {
+    private int getFramePerSecond() {
         return (int) (1e3 / getElapsedTime());
     }
 
