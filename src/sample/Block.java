@@ -1,11 +1,12 @@
 package sample;
 
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 
 import java.util.Set;
 
 
-public class Block {
+public class Block implements Render {
 
 
     private double x;
@@ -26,6 +27,7 @@ public class Block {
     public void render(GraphicsContext gameScreen, long deltaTime) {
         x += velocityX * (deltaTime * 1e-3);
         y += velocityY * (deltaTime * 1e-3);
+        gameScreen.setFill(Color.BLACK);
         gameScreen.fillRect(x, y, w, h);
     }
 

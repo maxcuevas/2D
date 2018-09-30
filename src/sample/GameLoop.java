@@ -18,14 +18,17 @@ public class GameLoop implements Runnable {
     Block character;
     public final Set<String> keysDown = new HashSet<>();
     private static boolean isRunning = false;
+    private Map map;
 
-    public GameLoop(){}
+    public GameLoop(){
+    }
 
     public void setCanvas(Canvas canvas) {
         graphicsContext = canvas.getGraphicsContext2D();
         height = canvas.getHeight();
         width = canvas.getWidth();
         character = new Block();
+        map = new Map();
     }
 
     @Override
@@ -44,8 +47,9 @@ public class GameLoop implements Runnable {
 
 
             clearScreen();
-            fps.renderFPS(graphicsContext);
+            map.render(graphicsContext, 0);
             character.render(graphicsContext, fps.getElapsedTime());
+            fps.renderFPS(graphicsContext);
 
         }
     }
