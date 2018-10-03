@@ -1,15 +1,14 @@
 package sample;
 
+import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 
 import java.util.HashSet;
-import java.util.Random;
 import java.util.Set;
 
-public class GameLoop implements Runnable {
+public class GameLoop extends AnimationTimer {
 
     private final FPS fps = new FPS();
     public GraphicsContext graphicsContext;
@@ -23,19 +22,8 @@ public class GameLoop implements Runnable {
     public GameLoop(){
     }
 
-    public void setCanvas(Canvas canvas) {
-        graphicsContext = canvas.getGraphicsContext2D();
-        height = canvas.getHeight();
-        width = canvas.getWidth();
-        character = new Block();
-        map = new Map();
-    }
-
     @Override
-    public void run() {
-
-
-        while (true) {
+    public void handle(long now) {
             fps.setTimeStart();
 
 
@@ -47,12 +35,21 @@ public class GameLoop implements Runnable {
 
 
             clearScreen();
-              map.render(graphicsContext, 0);
+            map.render(graphicsContext, 0);
             character.render(graphicsContext, fps.getElapsedTime());
             fps.renderFPS(graphicsContext);
 
-        }
     }
+
+    public void setCanvas(Canvas canvas) {
+        graphicsContext = canvas.getGraphicsContext2D();
+        height = canvas.getHeight();
+        width = canvas.getWidth();
+        character = new Block();
+        map = new Map();
+    }
+
+
 
     private void clearScreen() {
         graphicsContext.setFill(Color.WHITE);

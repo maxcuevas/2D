@@ -15,9 +15,8 @@ public class Controller {
     public void handleClick(MouseEvent mouseEvent) {
         if (!gameLoop.isRunning()){
             gameLoop.setRunning(true);
+            gameLoop.start();
             gameLoop.setCanvas(gameCanvas);
-            Thread thread = new Thread(gameLoop);
-            thread.start();
         }
 
     }
