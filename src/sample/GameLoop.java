@@ -47,7 +47,7 @@ public class GameLoop implements Runnable {
 
 
             clearScreen();
-            map.render(graphicsContext, 0);
+              map.render(graphicsContext, 0);
             character.render(graphicsContext, fps.getElapsedTime());
             fps.renderFPS(graphicsContext);
 
