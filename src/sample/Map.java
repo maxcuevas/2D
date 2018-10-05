@@ -1,40 +1,39 @@
 package sample;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
-import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
 
 public class Map implements Render {
 
-    ArrayList<ArrayList<Boolean>> map;
-    private double width = 10;
-    private double height = 10;
+    ArrayList<ArrayList<Rectangle>> map;
+    private final double width = 10;
+    private final double height = 10;
     private double XPos = 0;
     private double YPos = 50;
-    private double mapWidth = 150;
-    private double mapHeight = 150;
+    private double mapSquareWidthCount = 10;
+    private double mapSquareHeightCount = 10;
+
 
     public Map() {
         this.map = createMap();
     }
 
-    private ArrayList<ArrayList<Boolean>> createMap() {
+    private ArrayList<ArrayList<Rectangle>> createMap() {
 
-        ArrayList<ArrayList<Boolean>> mapLayout = new ArrayList<>();
-        for (int row = 0; row < mapHeight; row += height) {
-            ArrayList<Boolean> mapRow = new ArrayList<>();
-            for (int column = 0; column < mapWidth; column += width) {
-                if ((int)(row/10)%2 == 0){
-                    mapRow.add(true);
-                    mapRow.add(false);
+        ArrayList<ArrayList<Rectangle>> mapLayout = new ArrayList<>();
+        for (int row = 0; row < mapSquareHeightCount; row++) {
+            ArrayList<Rectangle> mapRow = new ArrayList<>();
+            for (int column = 0; column < mapSquareWidthCount; column++) {
+                if (row % 2 == 0) {
+                    mapRow.add(new Rectangle(width, height, Color.YELLOW));
+                    mapRow.add(new Rectangle(width, height, Color.GREEN));
                 }
                 else {
-                    mapRow.add(false);
-                    mapRow.add(true);
+                    mapRow.add(new Rectangle(width, height, Color.GREEN));
+                    mapRow.add(new Rectangle(width, height, Color.YELLOW));
                 }
             }
             mapLayout.add(mapRow);
@@ -44,21 +43,22 @@ public class Map implements Render {
     }
 
 
-    public void render(GraphicsContext gameScreen, long deltaTime) {
+    public void render(Pane gameScreen) {
+
 
         double XOffset = XPos;
-        double YOffset = YPos;
+        double YOffset = YPos + 100;
 
-        for (ArrayList<Boolean> row : map) {
-            for (Boolean item : row) {
-
-                if (item) {
-                    gameScreen.setFill(Color.GREEN);
-                } else {
-                    gameScreen.setFill(Color.YELLOW);
-                }
+        for (ArrayList<Rectangle> row : map) {
+            for (Rectangle item : row) {
                 XOffset += width;
-                gameScreen.fillRect(XOffset, YOffset, width, height);
+                item.setX(XOffset);
+                item.setY(YOffset);
+                if (item.getFill().equals(Color.GREEN)) {
+                    gameScreen.getChildren().add(item);
+                } else {
+                    gameScreen.getChildren().add(item);
+                }
             }
             YOffset += height;
             XOffset = XPos;

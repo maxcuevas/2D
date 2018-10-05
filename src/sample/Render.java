@@ -1,8 +1,8 @@
 package sample;
 
-import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.layout.Pane;
 
 public interface Render {
 
-    void render(GraphicsContext gameScreen, long deltaTime);
+    void render(Pane gameScreen);
 }

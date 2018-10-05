@@ -1,9 +1,8 @@
 package sample;
 
 import javafx.animation.AnimationTimer;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
+import javafx.scene.input.KeyCode;
+import javafx.scene.layout.Pane;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -11,56 +10,44 @@ import java.util.Set;
 public class GameLoop extends AnimationTimer {
 
     private final FPS fps = new FPS();
-    public GraphicsContext graphicsContext;
     private double width;
     private double height;
-    Block character;
-    public final Set<String> keysDown = new HashSet<>();
+    Character character;
+    public final Set<KeyCode> keysDown = new HashSet<>();
     private static boolean isRunning = false;
     private Map map;
+    private Pane gameScreen;
 
-    public GameLoop(){
+    public GameLoop() {
     }
 
     @Override
     public void handle(long now) {
-            fps.setTimeStart();
+        fps.setTimeStart();
 
 
-            character.clearVelocities();
-            character.readInput(keysDown);
+        character.clearVelocities();
+        character.readInput(keysDown);
 
-
-            fps.setTimeEnd();
-
-
-            clearScreen();
-            map.render(graphicsContext, 0);
-            character.render(graphicsContext, fps.getElapsedTime());
-            fps.renderFPS(graphicsContext);
+        fps.setTimeEnd();
+        character.move(fps.getElapsedTime());
 
     }
 
-    public void setCanvas(Canvas canvas) {
-        graphicsContext = canvas.getGraphicsContext2D();
-        height = canvas.getHeight();
-        width = canvas.getWidth();
-        character = new Block();
+    public void setGameScreen(Pane gameScreen) {
+        this.gameScreen = gameScreen;
         map = new Map();
+        map.render(gameScreen);
+        character = new Character();
+        character.render(gameScreen);
     }
 
 
-
-    private void clearScreen() {
-        graphicsContext.setFill(Color.WHITE);
-        graphicsContext.fillRect(0, 0, width, height);
-    }
-
-    public void readInput(String input){
+    public void readInput(KeyCode input) {
         keysDown.add(input);
     }
 
-    public void clearInput(String input) {
+    public void clearInput(KeyCode input) {
         keysDown.remove(input);
     }
 
@@ -71,4 +58,6 @@ public class GameLoop extends AnimationTimer {
     public void setRunning(boolean running) {
         isRunning = running;
     }
+
+
 }
