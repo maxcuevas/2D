@@ -1,21 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="Basically revamped the game so far to use &#10;AnimationTimer instead of a Canvas to draw on.">
-      <change afterPath="$PROJECT_DIR$/src/sample/Character.java" afterDir="false" />
+    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/2D/sample/Block.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/2D/sample/Controller.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/2D/sample/Controller.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/2D/sample/GameLoop.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/2D/sample/GameLoop.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/2D/sample/Map.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/2D/sample/Map.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/2D/sample/Render.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/2D/sample/Render.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/2D/sample/sample.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/2D/sample/sample.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/Block.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/GameLoop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/GameLoop.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/Map.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Map.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/Render.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Render.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/sample.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/sample.fxml" afterDir="false" />
     </list>
     <ignored path="JavaFxApplication.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -73,14 +62,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Map.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Map.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/sample/Map.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="26">
-              <caret line="10" column="40" lean-forward="true" selection-start-line="10" selection-start-column="40" selection-end-line="10" selection-end-column="40" />
-              <folding>
-                <element signature="method#createMap#0;class#MapRect#0" />
-              </folding>
+            <state relative-caret-position="15">
+              <caret line="10" column="40" selection-start-line="10" selection-start-column="40" selection-end-line="10" selection-end-column="40" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="60">
+              <caret line="4" column="4" lean-forward="true" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="4" />
             </state>
           </provider>
         </entry>
@@ -88,15 +83,13 @@
       <file leaf-file-name="Character.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/sample/Character.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="7">
+            <state relative-caret-position="30">
               <caret line="2" column="10" selection-start-line="2" selection-start-column="10" selection-end-line="2" selection-end-column="10" />
               <folding>
                 <element signature="method#Character#0;class#Character#0" />
                 <element signature="method#render#0;class#Character#0" />
                 <element signature="method#move#0;class#Character#0" />
-                <element signature="method#clearVelocities#0;class#Block#0" />
                 <element signature="method#setRunning#0;class#Character#0" />
-                <element signature="method#readInput#0;class#Block#0" />
               </folding>
             </state>
           </provider>
@@ -105,7 +98,7 @@
       <file leaf-file-name="GameLoop.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/sample/GameLoop.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="224">
+            <state relative-caret-position="375">
               <caret line="30" selection-start-line="30" selection-end-line="30" />
             </state>
           </provider>
@@ -114,12 +107,10 @@
       <file leaf-file-name="Controller.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/sample/Controller.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
+            <state relative-caret-position="360">
               <caret line="30" column="21" selection-start-line="30" selection-start-column="21" selection-end-line="30" selection-end-column="21" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#827#828#0" expanded="true" />
-                <element signature="e#882#883#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -144,6 +135,7 @@
   <component name="Git.Settings">
     <option name="PREVIOUS_COMMIT_AUTHORS">
       <list>
+        <option value="maxcuevas &lt;maximilianocuevas777@gmail.com&gt;" />
         <option value="Max Cuevas &lt;maximilianocuevas777@gmail.com&gt;" />
       </list>
     </option>
@@ -164,6 +156,7 @@
         <option value="$PROJECT_DIR$/src/sample/Controller.java" />
         <option value="$PROJECT_DIR$/src/sample/GameLoop.java" />
         <option value="$PROJECT_DIR$/src/sample/Character.java" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -185,7 +178,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
+      <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -208,7 +201,7 @@
           <select />
         </subPane>
       </pane>
-      <pane id="AndroidView" />
+      <pane id="PackagesPane" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -341,6 +334,14 @@
       <updated>1359379246138</updated>
       <workItem from="1359379250712" duration="1302000" />
     </task>
+    <task id="LOCAL-00001" summary="Basically revamped the game so far to use &#10;AnimationTimer instead of a Canvas to draw on.">
+      <created>1538779529420</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1538779529420</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -348,10 +349,10 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="67" y="25" width="1299" height="743" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Messages" order="7" weight="0.32786885" />
       <window_info anchor="right" id="Palette&#9;" order="4" />
       <window_info id="Image Layers" order="2" />
       <window_info anchor="right" id="Capture Analysis" order="4" />
@@ -359,11 +360,10 @@
       <window_info anchor="right" id="Maven Projects" order="3" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.018032787" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.32786885" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="8" visible="true" weight="0.77868855" />
+      <window_info anchor="bottom" id="Terminal" order="8" weight="0.77868855" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.20830008" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.3295082" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.21149242" />
       <window_info id="Learn" order="2" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -372,25 +372,27 @@
       <window_info anchor="bottom" id="Debug" order="3" weight="0.31967214" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="right" id="JetGradle" order="3" />
+      <window_info anchor="bottom" id="Messages" order="7" weight="0.32786885" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.3295082" />
       <window_info anchor="bottom" id="Changes" order="7" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="right" id="Database" order="3" />
       <window_info anchor="bottom" id="Profiler" order="7" />
       <window_info anchor="bottom" id="Problems" order="7" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.24980047" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Application Servers" order="7" />
+      <window_info anchor="right" id="Database" order="3" />
     </layout>
     <layout-to-restore>
       <window_info anchor="bottom" id="Application Servers" order="7" />
       <window_info id="Designer" order="2" />
-      <window_info anchor="right" id="Palette" order="3" />
-      <window_info anchor="right" id="JetGradle" order="4" />
+      <window_info id="Learn" order="7" />
       <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.018032787" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="right" id="JetGradle" order="4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" id="Palette" order="3" />
       <window_info id="UI Designer" order="3" />
       <window_info anchor="bottom" id="Profiler" order="8" />
       <window_info id="Favorites" order="4" side_tool="true" />
@@ -399,18 +401,18 @@
       <window_info anchor="right" id="Capture Analysis" order="7" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Messages" order="11" weight="0.32843137" />
+      <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.24980047" />
       <window_info anchor="bottom" id="Problems" order="12" />
-      <window_info id="Image Layers" order="6" />
       <window_info anchor="bottom" id="Version Control" order="13" weight="0.32786885" />
       <window_info anchor="right" id="Maven Projects" order="5" />
       <window_info anchor="bottom" id="Terminal" order="14" weight="0.17377049" />
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.20830008" />
-      <window_info id="Learn" order="7" />
       <window_info anchor="right" id="Database" order="6" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info id="Image Layers" order="6" />
       <window_info anchor="right" id="Palette&#9;" order="8" />
       <window_info anchor="right" id="Theme Preview" order="9" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -527,22 +529,15 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/sample/sample.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="14" selection-start-line="8" selection-start-column="14" selection-end-line="8" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/Character.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="24" selection-start-line="24" selection-end-line="24" />
           <folding>
-            <element signature="method#Block#0;class#Block#0" />
-            <element signature="method#clearVelocities#0;class#Block#0" />
-            <element signature="method#readInput#0;class#Block#0" />
+            <element signature="method#Character#0;class#Character#0" />
+            <element signature="method#render#0;class#Character#0" />
+            <element signature="method#move#0;class#Character#0" />
+            <element signature="method#setRunning#0;class#Character#0" />
           </folding>
         </state>
       </provider>
@@ -815,10 +810,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="437">
           <caret line="140" column="37" lean-forward="true" selection-start-line="140" selection-start-column="37" selection-end-line="140" selection-end-column="37" />
-          <folding>
-            <element signature="e#5295#5296#0" expanded="true" />
-            <element signature="e#5337#5338#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -826,65 +817,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
           <caret line="175" selection-start-line="175" selection-end-line="175" />
-          <folding>
-            <element signature="docComment;class#Rectangle#0" />
-            <element signature="docComment;method#Rectangle#0;class#Rectangle#0" />
-            <element signature="method#Rectangle#0;class#Rectangle#0" />
-            <element signature="docComment;method#Rectangle#1;class#Rectangle#0" />
-            <element signature="method#Rectangle#1;class#Rectangle#0" />
-            <element signature="docComment;method#Rectangle#2;class#Rectangle#0" />
-            <element signature="docComment;method#Rectangle#3;class#Rectangle#0" />
-            <element signature="docComment;field#x#0;class#Rectangle#0" />
-            <element signature="method#setX#0;class#Rectangle#0" />
-            <element signature="method#xProperty#0;class#Rectangle#0" />
-            <element signature="class#4524:4999" />
-            <element signature="method#invalidated#0;class#4524:4999" />
-            <element signature="docComment;field#y#0;class#Rectangle#0" />
-            <element signature="method#yProperty#0;class#Rectangle#0" />
-            <element signature="class#5500:5975" />
-            <element signature="method#invalidated#0;class#5500:5975" />
-            <element signature="docComment;field#width#0;class#Rectangle#0" />
-            <element signature="class#6148:6515" />
-            <element signature="method#invalidated#0;class#6148:6515" />
-            <element signature="docComment;field#height#0;class#Rectangle#0" />
-            <element signature="class#6887:7255" />
-            <element signature="method#invalidated#0;class#6887:7255" />
-            <element signature="docComment;field#arcWidth#0;class#Rectangle#0" />
-            <element signature="method#setArcWidth#0;class#Rectangle#0" />
-            <element signature="method#arcWidthProperty#0;class#Rectangle#0" />
-            <element signature="class#8190:8813" />
-            <element signature="docComment;field#arcHeight#0;class#Rectangle#0" />
-            <element signature="method#setArcHeight#0;class#Rectangle#0" />
-            <element signature="method#arcHeightProperty#0;class#Rectangle#0" />
-            <element signature="class#9559:10184" />
-            <element signature="docComment;method#impl_createPeer#0;class#Rectangle#0" />
-            <element signature="e#10406#10417#0" />
-            <element signature="docComment;class#StyleableProperties#0;class#Rectangle#0" />
-            <element signature="class#StyleableProperties#0;class#Rectangle#0" />
-            <element signature="class#11179:11655" />
-            <element signature="method#getStyleableProperty#0;class#11179:11655" />
-            <element signature="class#11745:12217" />
-            <element signature="method#getStyleableProperty#0;class#11745:12217" />
-            <element signature="initializer##0;class#StyleableProperties#0;class#Rectangle#0" />
-            <element signature="docComment;method#getClassCssMetaData#0;class#Rectangle#0" />
-            <element signature="method#getClassCssMetaData#0;class#Rectangle#0" />
-            <element signature="docComment;method#getCssMetaData#0;class#Rectangle#0" />
-            <element signature="docComment;method#convertLineJoin#0;class#Rectangle#0" />
-            <element signature="method#convertLineJoin#0;class#Rectangle#0" />
-            <element signature="e#13249#13312#0" />
-            <element signature="docComment;method#impl_computeGeomBounds#0;class#Rectangle#0" />
-            <element signature="e#14504#14515#0" />
-            <element signature="method#impl_computeGeomBounds#0;class#Rectangle#0" />
-            <element signature="e#14622#14692#0" />
-            <element signature="docComment;method#impl_configShape#0;class#Rectangle#0" />
-            <element signature="e#15773#15784#0" />
-            <element signature="method#impl_configShape#0;class#Rectangle#0" />
-            <element signature="docComment;method#impl_updatePeer#0;class#Rectangle#0" />
-            <element signature="e#16474#16485#0" />
-            <element signature="method#impl_updatePeer#0;class#Rectangle#0" />
-            <element signature="docComment;method#toString#0;class#Rectangle#0" />
-            <element signature="method#toString#0;class#Rectangle#0" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -915,12 +847,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/Controller.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
+        <state relative-caret-position="360">
           <caret line="30" column="21" selection-start-line="30" selection-start-column="21" selection-end-line="30" selection-end-column="21" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#827#828#0" expanded="true" />
-            <element signature="e#882#883#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -934,33 +864,35 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/GameLoop.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="224">
+        <state relative-caret-position="375">
           <caret line="30" selection-start-line="30" selection-end-line="30" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/Character.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7">
+        <state relative-caret-position="30">
           <caret line="2" column="10" selection-start-line="2" selection-start-column="10" selection-end-line="2" selection-end-column="10" />
           <folding>
             <element signature="method#Character#0;class#Character#0" />
             <element signature="method#render#0;class#Character#0" />
             <element signature="method#move#0;class#Character#0" />
-            <element signature="method#clearVelocities#0;class#Block#0" />
             <element signature="method#setRunning#0;class#Character#0" />
-            <element signature="method#readInput#0;class#Block#0" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/Map.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="26">
-          <caret line="10" column="40" lean-forward="true" selection-start-line="10" selection-start-column="40" selection-end-line="10" selection-end-column="40" />
-          <folding>
-            <element signature="method#createMap#0;class#MapRect#0" />
-          </folding>
+        <state relative-caret-position="15">
+          <caret line="10" column="40" selection-start-line="10" selection-start-column="40" selection-end-line="10" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="4" lean-forward="true" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="4" />
         </state>
       </provider>
     </entry>
