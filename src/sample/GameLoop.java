@@ -30,15 +30,16 @@ public class GameLoop extends AnimationTimer {
         character.readInput(keysDown);
 
         fps.setTimeEnd();
-        character.move(fps.getElapsedTime());
 
+        character.moveX(gameScreen, fps.getElapsedTime());
+        character.moveY(gameScreen, fps.getElapsedTime());
     }
 
     public void setGameScreen(Pane gameScreen) {
         this.gameScreen = gameScreen;
         map = new Map();
         map.render(gameScreen);
-        character = new Character();
+        character = new Character(0, 0);
         character.render(gameScreen);
     }
 
