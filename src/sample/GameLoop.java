@@ -26,7 +26,7 @@ public class GameLoop extends AnimationTimer {
         fps.setTimeStart();
 
 
-        character.clearVelocities();
+        character.resetSpeed();
         character.readInput(keysDown);
 
         fps.setTimeEnd();

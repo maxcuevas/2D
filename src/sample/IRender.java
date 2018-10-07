@@ -2,7 +2,7 @@ package sample;
 
 import javafx.scene.layout.Pane;
 
-public interface Render {
+public interface IRender {
 
     void render(Pane gameScreen);
 }

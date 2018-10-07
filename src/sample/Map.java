@@ -6,7 +6,7 @@ import javafx.scene.shape.Rectangle;
 
 import java.util.ArrayList;
 
-public class Map implements Render {
+public class Map implements IRender {
 
     ArrayList<ArrayList<Rectangle>> map;
     private final double width = 10;
