@@ -5,6 +5,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 
+import java.util.Optional;
+
 
 public class Movement {
 
@@ -20,7 +22,6 @@ public class Movement {
         Shape intersectedShape = getCollidedShapeIntersection(gameScreen, rectangle);
         rectangle.setY(getNewPosition(Math.signum(proposedMove), rectangle.getY(), ShapeWrapper.getShapeHeight(intersectedShape)));
     }
-
 
     public void moveX(Pane gameScreen, long deltaTime, Rectangle rectangle, double velocityX) {
         double proposedMove = velocityX * (deltaTime * 1e-3);
@@ -44,13 +45,13 @@ public class Movement {
     }
 
     private Shape getCollidedShapeIntersection(Pane gameScreen, Rectangle rectangle) {
-        for (Node node : gameScreen.getChildren()) {
-            if (isCollision(node, rectangle)) {
-                return Shape.intersect(rectangle, (Shape) node);
-            }
-        }
-        return new Rectangle(0, 0);
-
+        Optional<Node> collidedNode = gameScreen.getChildren()
+                .stream()
+                .filter(node -> isCollision(node, rectangle))
+                .findFirst();
+        return collidedNode.isPresent() ?
+                Shape.intersect(rectangle, (Shape) collidedNode.get())
+                : new Rectangle(0, 0);
     }
 
     private boolean isCollision(Node node, Rectangle rectangle) {

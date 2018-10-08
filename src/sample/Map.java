@@ -2,13 +2,12 @@ package sample;
 
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 
 import java.util.ArrayList;
 
 public class Map implements IRender {
 
-    ArrayList<ArrayList<Rectangle>> map;
+    ArrayList<ArrayList<MapTile>> map;
     private final double width = 10;
     private final double height = 10;
     private double XPos = 0;
@@ -21,19 +20,19 @@ public class Map implements IRender {
         this.map = createMap();
     }
 
-    private ArrayList<ArrayList<Rectangle>> createMap() {
+    private ArrayList<ArrayList<MapTile>> createMap() {
 
-        ArrayList<ArrayList<Rectangle>> mapLayout = new ArrayList<>();
+        ArrayList<ArrayList<MapTile>> mapLayout = new ArrayList<>();
         for (int row = 0; row < mapSquareHeightCount; row++) {
-            ArrayList<Rectangle> mapRow = new ArrayList<>();
+            ArrayList<MapTile> mapRow = new ArrayList<>();
             for (int column = 0; column < mapSquareWidthCount; column++) {
                 if (row % 2 == 0) {
-                    mapRow.add(new Rectangle(width, height, Color.YELLOW));
-                    mapRow.add(new Rectangle(width, height, Color.GREEN));
+                    mapRow.add(new MapTile(width, height, Color.YELLOW));
+                    mapRow.add(new MapTile(width, height, Color.GREEN));
                 }
                 else {
-                    mapRow.add(new Rectangle(width, height, Color.GREEN));
-                    mapRow.add(new Rectangle(width, height, Color.YELLOW));
+                    mapRow.add(new MapTile(width, height, Color.GREEN));
+                    mapRow.add(new MapTile(width, height, Color.YELLOW));
                 }
             }
             mapLayout.add(mapRow);
@@ -49,20 +48,28 @@ public class Map implements IRender {
         double XOffset = XPos;
         double YOffset = YPos + 100;
 
-        for (ArrayList<Rectangle> row : map) {
-            for (Rectangle item : row) {
+        for (ArrayList<MapTile> row : map) {
+            for (MapTile item : row) {
                 XOffset += width;
-                item.setX(XOffset);
-                item.setY(YOffset);
-                if (item.getFill().equals(Color.GREEN)) {
-                    gameScreen.getChildren().add(item);
+                item.mapTile.setX(XOffset);
+                item.mapTile.setY(YOffset);
+                if (item.mapTile.getFill().equals(Color.GREEN)) {
+                    gameScreen.getChildren().add(item.mapTile);
                 } else {
-                    gameScreen.getChildren().add(item);
+                    gameScreen.getChildren().add(item.mapTile);
                 }
             }
             YOffset += height;
             XOffset = XPos;
         }
+
+        Stone stone = new Stone();
+
+        stone.stone.setCenterX(20);
+        stone.stone.setCenterY(20);
+
+        gameScreen.getChildren().add(stone.stone);
+
 
 
     }
