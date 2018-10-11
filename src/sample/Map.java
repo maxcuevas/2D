@@ -2,12 +2,13 @@ package sample;
 
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Shape;
 
 import java.util.ArrayList;
 
 public class Map implements IRender {
 
-    ArrayList<ArrayList<MapTile>> map;
+    public ArrayList<ArrayList<MapTile>> map;
     private final double width = 10;
     private final double height = 10;
     private double XPos = 0;
@@ -42,6 +43,7 @@ public class Map implements IRender {
     }
 
 
+
     public void render(Pane gameScreen) {
 
 
@@ -51,9 +53,9 @@ public class Map implements IRender {
         for (ArrayList<MapTile> row : map) {
             for (MapTile item : row) {
                 XOffset += width;
-                item.mapTile.setX(XOffset);
-                item.mapTile.setY(YOffset);
-                if (item.mapTile.getFill().equals(Color.GREEN)) {
+                item.mapTile.setTranslateX(XOffset);
+                item.mapTile.setTranslateY(YOffset);
+                if (((Shape) (item.mapTile)).getFill().equals(Color.GREEN)) {
                     gameScreen.getChildren().add(item.mapTile);
                 } else {
                     gameScreen.getChildren().add(item.mapTile);

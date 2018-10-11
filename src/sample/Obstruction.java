@@ -2,7 +2,11 @@ package sample;
 
 public class Obstruction {
 
-    private boolean isObstruction = false;
+    private boolean isObstruction;
+
+    public Obstruction(boolean isObstruction) {
+        this.isObstruction = isObstruction;
+    }
 
     public boolean isObstruction() {
         return isObstruction;

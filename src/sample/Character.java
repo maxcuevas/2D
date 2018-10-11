@@ -26,12 +26,12 @@ public class Character implements IRender {
         character.toFront();
     }
 
-    public void moveX(Pane gameScreen, long deltaTime) {
-        movement.moveX(gameScreen, deltaTime, character, velocity.getVelocityX());
+    public void moveX(Map map, long deltaTime) {
+        movement.moveX(map, deltaTime, character, velocity.getVelocityX());
     }
 
-    public void moveY(Pane gameScreen, long deltaTime) {
-        movement.moveY(gameScreen, deltaTime, character, velocity.getVelocityY());
+    public void moveY(Map map, long deltaTime) {
+        movement.moveY(map, deltaTime, character, velocity.getVelocityY());
     }
 
 
@@ -60,4 +60,5 @@ public class Character implements IRender {
     public void resetSpeed() {
         velocity.clearVelocities();
     }
+
 }

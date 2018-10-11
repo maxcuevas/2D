@@ -31,8 +31,8 @@ public class GameLoop extends AnimationTimer {
 
         fps.setTimeEnd();
 
-        character.moveX(gameScreen, fps.getElapsedTime());
-        character.moveY(gameScreen, fps.getElapsedTime());
+        character.moveX(map, fps.getElapsedTime());
+        character.moveY(map, fps.getElapsedTime());
     }
 
     public void setGameScreen(Pane gameScreen) {
