@@ -45,12 +45,12 @@ public class Movement {
 
     private Shape getCollidedShapeIntersection(Map map, Node node) {
 
-        for (ArrayList<MapTile> row : map.map) {
+        for (ArrayList<Obstruction> row : map.map) {
 
-            for (MapTile mapTile : row) {
+            for (Obstruction mapTile : row) {
 
-                if (isCollision(mapTile.mapTile, node)) {
-                    return Shape.intersect((Shape) node, (Shape) mapTile.mapTile);
+                if (isCollision(mapTile, node)) {
+                    return Shape.intersect((Shape) node, (Shape) mapTile.getNode());
 
                 }
             }
@@ -66,8 +66,8 @@ public class Movement {
         return new Rectangle(0, 0);
     }
 
-    private boolean isCollision(Node node1, Node node2) {
-        return !node1.equals(node2) && node1.getBoundsInParent().intersects(node2.getBoundsInParent());
+    private boolean isCollision(Obstruction obstruction, Node node2) {
+        return !obstruction.equals(node2) && obstruction.getObstruction() && obstruction.getNode().getBoundsInParent().intersects(node2.getBoundsInParent());
     }
 
 }
