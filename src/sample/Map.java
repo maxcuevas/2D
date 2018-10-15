@@ -10,10 +10,8 @@ public class Map implements IRender {
     public ArrayList<ArrayList<Obstruction>> map;
     private final double width = 15;
     private final double height = 15;
-    private double XPos = 0;
-    private double YPos = 50;
-    private double mapSquareWidthCount = 10;
-    private double mapSquareHeightCount = 10;
+    private double mapSquareWidthCount = 5;
+    private double mapSquareHeightCount = 5;
 
 
     public Map() {

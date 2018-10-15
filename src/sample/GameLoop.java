@@ -14,7 +14,8 @@ public class GameLoop extends AnimationTimer {
     public final Set<KeyCode> keysDown = new HashSet<>();
     private static boolean isRunning = false;
     private Map map;
-    private Pane gameScreen;
+    private Camera camera;
+
 
     public GameLoop() {
     }
@@ -33,14 +34,15 @@ public class GameLoop extends AnimationTimer {
         player.moveY(map, fps.getElapsedTime());
 
         player.update();
+        camera.updateCamera(player);
     }
 
     public void setGameScreen(Pane gameScreen) {
-        this.gameScreen = gameScreen;
         map = new Map();
         map.render(gameScreen);
         player = new Player(0, 0);
         player.render(gameScreen);
+        camera = new Camera(gameScreen, player);
     }
 
 
