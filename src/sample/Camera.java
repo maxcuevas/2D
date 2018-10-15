@@ -2,13 +2,15 @@ package sample;
 
 import javafx.scene.layout.Pane;
 
+import java.util.ArrayList;
+
 public class Camera {
-
-    //this class should be completely tied to the pane that shows all of the pretty pictures
-
 
     private double deltaX;
     private double deltaY;
+
+    private final double offsetX;
+    private final double offsetY;
 
 
     private Pane gameScreen;
@@ -16,21 +18,34 @@ public class Camera {
     public Camera(Pane gameScreen, Player player) {
         this.gameScreen = gameScreen;
 
-        double playerX = player.view.getTranslateX();
-        double playerY = player.view.getTranslateY();
+        double playerX = player.getView().getTranslateX();
+        double playerY = player.getView().getTranslateY();
 
         double gameScreenMidX = gameScreen.getWidth() / 2;
         double gameScreenMidY = gameScreen.getHeight() / 2;
 
-        deltaX = gameScreenMidX - playerX;
-        deltaY = gameScreenMidY - playerY;
+        offsetX = gameScreenMidX - playerX;
+        offsetY = gameScreenMidY - playerY;
     }
 
-    //need a function that will let adjust centerXY to the center of the center of the gamescreen
 
-    public void updateCamera(Player player) {
-        player.view.setTranslateX(player.view.getTranslateX() + deltaX);
-        player.view.setTranslateY(player.view.getTranslateY() + deltaY);
+    public void updateCamera(Player player, Map map) {
+
+
+        deltaX = -player.getX();
+        deltaY = -player.getY();
+
+        player.getView().setTranslateX(gameScreen.getWidth() / 2);
+
+        player.getView().setTranslateY(gameScreen.getHeight() / 2);
+
+        for (ArrayList<Obstruction> mapRow : map.obstructions) {
+            for (Obstruction obstruction : mapRow) {
+                obstruction.getNode().setTranslateX(obstruction.getBounds().getX() + offsetX + deltaX);
+                obstruction.getNode().setTranslateY(obstruction.getBounds().getY() + offsetY + deltaY);
+            }
+        }
+
     }
 
 

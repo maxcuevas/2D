@@ -37,5 +37,5 @@ public class Obstruction {
         return bounds;
     }
 
-    ;
+
 }

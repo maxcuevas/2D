@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class Map implements IRender {
 
-    public ArrayList<ArrayList<Obstruction>> map;
+    public ArrayList<ArrayList<Obstruction>> obstructions;
     private final double width = 15;
     private final double height = 15;
     private double mapSquareWidthCount = 5;
@@ -15,7 +15,7 @@ public class Map implements IRender {
 
 
     public Map() {
-        this.map = createMap();
+        this.obstructions = createMap();
     }
 
     private ArrayList<ArrayList<Obstruction>> createMap() {
@@ -34,7 +34,7 @@ public class Map implements IRender {
 
 
     public void render(Pane gameScreen) {
-        for (ArrayList<Obstruction> row : map) {
+        for (ArrayList<Obstruction> row : obstructions) {
             for (Obstruction item : row) {
                 item.getNode().setTranslateX(item.getBounds().getX());
                 item.getNode().setTranslateY(item.getBounds().getY());

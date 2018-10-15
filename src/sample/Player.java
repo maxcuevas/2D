@@ -14,26 +14,21 @@ public class Player implements IRender {
     private final int width = 10;
     private final int height = 10;
     private Rectangle2D.Double bounds;
-    Node view = new Rectangle(width, height, Color.BLACK);
+    private Node view = new Rectangle(width, height, Color.BLACK);
     Movement movement = new Movement();
     Velocity velocity = new Velocity(1.75, 50);
 
 
     public Player(double XPosition, double YPosition) {
         bounds = new Rectangle2D.Double(XPosition, YPosition, width, height);
-        view.setTranslateX(bounds.getX());
-        view.setTranslateY(bounds.getY());
     }
 
     public void render(Pane gameScreen) {
         gameScreen.getChildren().add(view);
-        view.toFront();
     }
 
     @Override
     public void update() {
-        view.setTranslateX(bounds.getX());
-        view.setTranslateY(bounds.getY());
         view.toFront();
     }
 
@@ -72,6 +67,19 @@ public class Player implements IRender {
 
     public void resetSpeed() {
         velocity.clearVelocities();
+    }
+
+    public double getX() {
+        return bounds.getX();
+    }
+
+    public double getY() {
+        return bounds.getY();
+    }
+
+
+    public Node getView() {
+        return view;
     }
 
 }
