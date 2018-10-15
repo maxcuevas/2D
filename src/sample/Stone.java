@@ -1,13 +1,15 @@
 package sample;
 
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 
 
 public class Stone extends Obstruction {
-    public Stone(boolean isObstruction, double radius, Color color) {
-        super(isObstruction);
-        this.setNode(new Circle(radius, color));
+    public Stone(boolean isObstruction, double x, double y, double width, double height, Color color) {
+        super(isObstruction, x, y, width, height);
+
+
+//        this.setNode(new Circle(x, y, radius));
+//        ((Shape) this.getNode()).setFill(color);
     }
 
 }

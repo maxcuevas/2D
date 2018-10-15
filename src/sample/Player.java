@@ -1,37 +1,50 @@
 package sample;
 
+import javafx.scene.Node;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
+import java.awt.geom.Rectangle2D;
 import java.util.Set;
 
 
-public class Character implements IRender {
+public class Player implements IRender {
     private final int width = 10;
     private final int height = 10;
-    Rectangle character = new Rectangle(width, height, Color.BLACK);
+    private Rectangle2D.Double bounds;
+    Node view = new Rectangle(width, height, Color.BLACK);
     Movement movement = new Movement();
     Velocity velocity = new Velocity(1.75, 50);
 
 
-    public Character(double XPosition, double YPosition) {
-        character.setX(XPosition);
-        character.setY(YPosition);
+    public Player(double XPosition, double YPosition) {
+        bounds = new Rectangle2D.Double(XPosition, YPosition, width, height);
+        view.setTranslateX(bounds.getX());
+        view.setTranslateY(bounds.getY());
     }
 
     public void render(Pane gameScreen) {
-        gameScreen.getChildren().add(character);
-        character.toFront();
+        gameScreen.getChildren().add(view);
+        view.toFront();
+    }
+
+    @Override
+    public void update() {
+        view.setTranslateX(bounds.getX());
+        view.setTranslateY(bounds.getY());
+        view.toFront();
     }
 
     public void moveX(Map map, long deltaTime) {
-        movement.moveX(map, deltaTime, character, velocity.getVelocityX());
+        double newPositionX = movement.getNewPositionX(map, deltaTime, bounds, velocity.getVelocityX());
+        bounds.setRect(newPositionX, bounds.getY(), bounds.getWidth(), bounds.getHeight());
     }
 
     public void moveY(Map map, long deltaTime) {
-        movement.moveY(map, deltaTime, character, velocity.getVelocityY());
+        double newPositionY = movement.getNewPositionY(map, deltaTime, bounds, velocity.getVelocityY());
+        bounds.setRect(bounds.getX(), newPositionY, bounds.getWidth(), bounds.getHeight());
     }
 
 

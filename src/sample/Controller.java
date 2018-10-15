@@ -13,6 +13,7 @@ public class Controller {
     private GameLoop gameLoop = new GameLoop();
     public Pane mainPane;
 
+
     public void handleClick(MouseEvent mouseEvent) {
         if (!gameLoop.isRunning()) {
             gameLoop.setRunning(true);
@@ -20,7 +21,6 @@ public class Controller {
             gameLoop.start();
             gameLoop.handle(System.currentTimeMillis());
         }
-
     }
 
     public void handleKeyDown(KeyEvent keyEvent) {

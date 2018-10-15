@@ -1,73 +1,67 @@
 package sample;
 
-import javafx.scene.Node;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.Shape;
-
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
 
 public class Movement {
 
 
-    public void moveY(Map map, long deltaTime, Node node, double velocityY) {
+    public double getNewPositionY(Map map, long deltaTime, Rectangle2D.Double bounds, double velocityY) {
         double proposedMove = velocityY * (deltaTime * 1e-3);
-        node.setTranslateY(node.getTranslateY() + proposedMove);
-        checkProposedMoveY(map, proposedMove, node);
-        node.toFront();
+        return checkProposedMoveY(map, proposedMove, bounds);
     }
 
-    private void checkProposedMoveY(Map map, double proposedMove, Node node) {
-        Shape intersectedShape = getCollidedShapeIntersection(map, node);
-        node.setTranslateY(getNewPosition(Math.signum(proposedMove), node.getTranslateY(), ShapeWrapper.getShapeHeight(intersectedShape)));
+    private double checkProposedMoveY(Map map, double proposedMove, Rectangle2D.Double bounds) {
+        Rectangle2D.Double tmp = new Rectangle2D.Double(bounds.getX(),
+                bounds.getY() + proposedMove, bounds.getWidth(), bounds.getHeight());
+
+        return getCollidedShapeIntersection(map, tmp) ? bounds.getY() : tmp.getY();
     }
 
-    public void moveX(Map map, long deltaTime, Node node, double velocityX) {
+    public double getNewPositionX(Map map, long deltaTime, Rectangle2D.Double bounds, double velocityX) {
         double proposedMove = velocityX * (deltaTime * 1e-3);
-        node.setTranslateX(node.getTranslateX() + proposedMove);
-        checkProposedMoveX(map, proposedMove, node);
-        node.toFront();
+        return checkProposedMoveX(map, proposedMove, bounds);
     }
 
-    private void checkProposedMoveX(Map map, double proposedMove, Node node) {
-        Shape intersectedShape = getCollidedShapeIntersection(map, node);
-        node.setTranslateX(getNewPosition(Math.signum(proposedMove), node.getTranslateX(), ShapeWrapper.getShapeWidth(intersectedShape)));
+    private double checkProposedMoveX(Map map, double proposedMove, Rectangle2D.Double bounds) {
+        Rectangle2D.Double tmp = new Rectangle2D.Double(bounds.getX() + proposedMove,
+                bounds.getY(), bounds.getWidth(), bounds.getHeight());
+
+        return getCollidedShapeIntersection(map, tmp) ? bounds.getX() : tmp.getX();
+
+//        Shape intersectedShape = getCollidedShapeIntersection(map, tmp);
+//        bounds.add(getNewPosition(Math.signum(proposedMove), bounds.getX(), ShapeWrapper.getShapeWidth(intersectedShape)), position.getY());
+//        node.setTranslateX(node.getTranslateX() - proposedMove);
+
+        //now shift everything so that the player is always at dead center
+
+//        for (ArrayList<Obstruction> mapRow : map.map) {
+//            for (Obstruction obstruction : mapRow) {
+//                obstruction.getNode().setTranslateX(
+////                        getNewPosition(Math.signum(proposedMove), obstruction.getNode().getTranslateX(), ShapeWrapper.getShapeWidth(intersectedShape)));
+//                                obstruction.getNode().getTranslateX() - proposedMove - getCollisionOffset(Math.signum(proposedMove), ShapeWrapper.getShapeWidth(intersectedShape)));
+//            }
+//        }
+
     }
 
 
-    private double getNewPosition(double sign, double movingShape1DPosition, double collidedShapeIntersection) {
-        return movingShape1DPosition - getCollisionOffset(sign, collidedShapeIntersection);
-    }
-
-    private double getCollisionOffset(double sign, double collidedShape1DSize) {
-        return Double.compare(collidedShape1DSize, 0) == 0 ? 0 : sign * (collidedShape1DSize + 1);
-    }
-
-    private Shape getCollidedShapeIntersection(Map map, Node node) {
+    private boolean getCollidedShapeIntersection(Map map, Rectangle2D.Double bounds) {
 
         for (ArrayList<Obstruction> row : map.map) {
-
-            for (Obstruction mapTile : row) {
-
-                if (isCollision(mapTile, node)) {
-                    return Shape.intersect((Shape) node, (Shape) mapTile.getNode());
-
+            for (Obstruction obstruction : row) {
+                if (isCollision(obstruction, bounds)) {
+                    return true;
                 }
             }
         }
 
-//        Optional<Node> collidedNode = map.getChildren()
-//                .stream()
-//                .filter(node -> isCollision(node, rectangle))
-//                .findFirst();
-//        return collidedNode.isPresent() ?
-//                Shape.intersect(rectangle, (Shape) collidedNode.get())
-//                : new Node(0, 0);
-        return new Rectangle(0, 0);
+        return false;
     }
 
-    private boolean isCollision(Obstruction obstruction, Node node2) {
-        return !obstruction.equals(node2) && obstruction.getObstruction() && obstruction.getNode().getBoundsInParent().intersects(node2.getBoundsInParent());
+    private boolean isCollision(Obstruction obstruction, Rectangle2D.Double bounds) {
+        return !obstruction.getBounds().equals(bounds) && obstruction.getObstruction() && obstruction.getBounds().intersects(bounds);
     }
 
 }

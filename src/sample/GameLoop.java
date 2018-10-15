@@ -10,9 +10,7 @@ import java.util.Set;
 public class GameLoop extends AnimationTimer {
 
     private final FPS fps = new FPS();
-    private double width;
-    private double height;
-    Character character;
+    Player player;
     public final Set<KeyCode> keysDown = new HashSet<>();
     private static boolean isRunning = false;
     private Map map;
@@ -26,21 +24,23 @@ public class GameLoop extends AnimationTimer {
         fps.setTimeStart();
 
 
-        character.resetSpeed();
-        character.readInput(keysDown);
+        player.resetSpeed();
+        player.readInput(keysDown);
 
         fps.setTimeEnd();
 
-        character.moveX(map, fps.getElapsedTime());
-        character.moveY(map, fps.getElapsedTime());
+        player.moveX(map, fps.getElapsedTime());
+        player.moveY(map, fps.getElapsedTime());
+
+        player.update();
     }
 
     public void setGameScreen(Pane gameScreen) {
         this.gameScreen = gameScreen;
         map = new Map();
         map.render(gameScreen);
-        character = new Character(0, 0);
-        character.render(gameScreen);
+        player = new Player(0, 0);
+        player.render(gameScreen);
     }
 
 

@@ -2,15 +2,14 @@ package sample;
 
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Shape;
 
 import java.util.ArrayList;
 
 public class Map implements IRender {
 
     public ArrayList<ArrayList<Obstruction>> map;
-    private final double width = 10;
-    private final double height = 10;
+    private final double width = 15;
+    private final double height = 15;
     private double XPos = 0;
     private double YPos = 50;
     private double mapSquareWidthCount = 10;
@@ -27,14 +26,7 @@ public class Map implements IRender {
         for (int row = 0; row < mapSquareHeightCount; row++) {
             ArrayList<Obstruction> mapRow = new ArrayList<>();
             for (int column = 0; column < mapSquareWidthCount; column++) {
-                if (row % 2 == 0) {
-                    mapRow.add(new MapTile(width, height, Color.YELLOW));
-                    mapRow.add(new MapTile(width, height, Color.GREEN));
-                }
-                else {
-                    mapRow.add(new MapTile(width, height, Color.GREEN));
-                    mapRow.add(new MapTile(width, height, Color.YELLOW));
-                }
+                mapRow.add(new MapTile(true, 100 + width * row, 100 + height * column, width, height, Color.GRAY));
             }
             mapLayout.add(mapRow);
         }
@@ -43,44 +35,18 @@ public class Map implements IRender {
     }
 
 
-
     public void render(Pane gameScreen) {
-
-
-        double XOffset = XPos;
-        double YOffset = YPos + 100;
-
         for (ArrayList<Obstruction> row : map) {
             for (Obstruction item : row) {
-                XOffset += width;
-                item.getNode().setTranslateX(XOffset);
-                item.getNode().setTranslateY(YOffset);
-                if (((Shape) (item.getNode())).getFill().equals(Color.GREEN)) {
-                    gameScreen.getChildren().add(item.getNode());
-                } else {
-                    gameScreen.getChildren().add(item.getNode());
-                }
+                item.getNode().setTranslateX(item.getBounds().getX());
+                item.getNode().setTranslateY(item.getBounds().getY());
+                gameScreen.getChildren().add(item.getNode());
             }
-            YOffset += height;
-            XOffset = XPos;
         }
+    }
 
-        Stone stone = new Stone(false, 10, Color.GRAY);
-
-        stone.getNode().setTranslateX(20);
-        stone.getNode().setTranslateY(20);
-
-        gameScreen.getChildren().add(stone.getNode());
-
-
-        Wood wood = new Wood(false, 1, 10, Color.BROWN);
-
-        wood.getNode().setTranslateX(50);
-        wood.getNode().setTranslateY(20);
-
-        gameScreen.getChildren().add(wood.getNode());
-
-
+    @Override
+    public void update() {
 
     }
 
