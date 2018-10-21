@@ -2,8 +2,6 @@ package sample;
 
 import javafx.scene.layout.Pane;
 
-import java.util.ArrayList;
-
 public class Camera {
 
     private double deltaX;
@@ -39,11 +37,16 @@ public class Camera {
 
         player.getView().setTranslateY(gameScreen.getHeight() / 2);
 
-        for (ArrayList<Obstruction> mapRow : map.obstructions) {
-            for (Obstruction obstruction : mapRow) {
-                obstruction.getNode().setTranslateX(obstruction.getBounds().getX() + offsetX + deltaX);
-                obstruction.getNode().setTranslateY(obstruction.getBounds().getY() + offsetY + deltaY);
+        for (Biome biome : map.biomes) {
+
+            for (int currentObstruction = 0; currentObstruction < biome.getBiomeSize(); currentObstruction++) {
+                biome.getTile(currentObstruction).getNode().setTranslateX(biome.getTile(currentObstruction).getBounds().getX() + offsetX + deltaX);
+                biome.getTile(currentObstruction).getNode().setTranslateY(biome.getTile(currentObstruction).getBounds().getY() + offsetY + deltaY);
             }
+//            for (Obstruction obstruction : biome) {
+//                obstruction.getNode().setTranslateX(obstruction.getBounds().getX() + offsetX + deltaX);
+//                obstruction.getNode().setTranslateY(obstruction.getBounds().getY() + offsetY + deltaY);
+//            }
         }
 
     }

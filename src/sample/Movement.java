@@ -1,7 +1,6 @@
 package sample;
 
 import java.awt.geom.Rectangle2D;
-import java.util.ArrayList;
 
 
 public class Movement {
@@ -30,13 +29,13 @@ public class Movement {
 
         return getCollidedShapeIntersection(map, tmp) ? bounds.getX() : tmp.getX();
 
-//        Shape intersectedShape = getCollidedShapeIntersection(obstructions, tmp);
+//        Shape intersectedShape = getCollidedShapeIntersection(biomes, tmp);
 //        bounds.add(getNewPosition(Math.signum(proposedMove), bounds.getX(), ShapeWrapper.getShapeWidth(intersectedShape)), position.getY());
 //        node.setTranslateX(node.getTranslateX() - proposedMove);
 
         //now shift everything so that the player is always at dead center
 
-//        for (ArrayList<Obstruction> mapRow : obstructions.obstructions) {
+//        for (ArrayList<Obstruction> mapRow : biomes.biomes) {
 //            for (Obstruction obstruction : mapRow) {
 //                obstruction.getNode().setTranslateX(
 ////                        getNewPosition(Math.signum(proposedMove), obstruction.getNode().getTranslateX(), ShapeWrapper.getShapeWidth(intersectedShape)));
@@ -49,12 +48,19 @@ public class Movement {
 
     private boolean getCollidedShapeIntersection(Map map, Rectangle2D.Double bounds) {
 
-        for (ArrayList<Obstruction> row : map.obstructions) {
-            for (Obstruction obstruction : row) {
-                if (isCollision(obstruction, bounds)) {
+        for (Biome biome : map.biomes) {
+
+            for (int currentObstruction = 0; currentObstruction < biome.getBiomeSize(); currentObstruction++) {
+                if (isCollision(biome.getTile(currentObstruction), bounds)){
                     return true;
                 }
             }
+
+//            for (Obstruction obstruction : biome) {
+//                if (isCollision(obstruction, bounds)) {
+//                    return true;
+//                }
+//            }
         }
 
         return false;

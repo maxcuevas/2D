@@ -1,44 +1,30 @@
 package sample;
 
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 
 public class Map implements IRender {
 
-    public ArrayList<ArrayList<Obstruction>> obstructions;
-    private final double width = 15;
-    private final double height = 15;
-    private double mapSquareWidthCount = 5;
-    private double mapSquareHeightCount = 5;
+    public ArrayList<Biome> biomes;
 
 
     public Map() {
-        this.obstructions = createMap();
+        this.biomes = new ArrayList<>();
+        this.biomes.add(createMap());
     }
 
-    private ArrayList<ArrayList<Obstruction>> createMap() {
-
-        ArrayList<ArrayList<Obstruction>> mapLayout = new ArrayList<>();
-        for (int row = 0; row < mapSquareHeightCount; row++) {
-            ArrayList<Obstruction> mapRow = new ArrayList<>();
-            for (int column = 0; column < mapSquareWidthCount; column++) {
-                mapRow.add(new MapTile(true, 100 + width * row, 100 + height * column, width, height, Color.GRAY));
-            }
-            mapLayout.add(mapRow);
-        }
-
-        return mapLayout;
+    private Biome createMap() {
+        return new Biome(-150, -150, Biome.BiomeType.PLAIN);
     }
 
 
     public void render(Pane gameScreen) {
-        for (ArrayList<Obstruction> row : obstructions) {
-            for (Obstruction item : row) {
-                item.getNode().setTranslateX(item.getBounds().getX());
-                item.getNode().setTranslateY(item.getBounds().getY());
-                gameScreen.getChildren().add(item.getNode());
+        for (Biome biome : biomes) {
+            for (int currentTile = 0; currentTile < biome.getBiomeSize(); currentTile++) {
+                biome.getTile(currentTile).getNode().setTranslateX(biome.getTile(currentTile).getBounds().getX());
+                biome.getTile(currentTile).getNode().setTranslateY(biome.getTile(currentTile).getBounds().getY());
+                gameScreen.getChildren().add(biome.getTile(currentTile).getNode());
             }
         }
     }
