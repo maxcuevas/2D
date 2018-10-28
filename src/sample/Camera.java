@@ -1,16 +1,14 @@
 package sample;
 
+import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 
 public class Camera {
 
-    private double deltaX;
-    private double deltaY;
-
     private final double offsetX;
     private final double offsetY;
-
-
+    private double deltaX;
+    private double deltaY;
     private Pane gameScreen;
 
     public Camera(Pane gameScreen, Player player) {
@@ -28,27 +26,59 @@ public class Camera {
 
 
     public void updateCamera(Player player, Map map) {
+        getPlayerDeltas(player);
+        fixPlayerToCenter(player);
+        drawMap(map);
+    }
 
+    private void drawMap(Map map) {
+        for (MapChunk mapChunk : map.mapChunks) {
+            for (Obstruction obstruction : mapChunk.getChunk()) {
+                moveObstruction(obstruction);
+            }
+        }
+    }
 
+    private void getPlayerDeltas(Player player) {
         deltaX = -player.getX();
         deltaY = -player.getY();
+    }
 
+    private void fixPlayerToCenter(Player player) {
         player.getView().setTranslateX(gameScreen.getWidth() / 2);
-
         player.getView().setTranslateY(gameScreen.getHeight() / 2);
+    }
 
-        for (MapChunk mapChunk : map.mapChunks) {
+    private void moveObstruction(Obstruction obstruction) {
+        moveObstructionX(obstruction);
+        moveObstructionY(obstruction);
+        setVisibility(obstruction.getNode());
+    }
 
-            for (int currentObstruction = 0; currentObstruction < mapChunk.getBiomeSize(); currentObstruction++) {
-                mapChunk.getTile(currentObstruction).getNode().setTranslateX(mapChunk.getTile(currentObstruction).getBounds().getX() + offsetX + deltaX);
-                mapChunk.getTile(currentObstruction).getNode().setTranslateY(mapChunk.getTile(currentObstruction).getBounds().getY() + offsetY + deltaY);
-            }
-//            for (Obstruction obstruction : mapChunk) {
-//                obstruction.getNode().setTranslateX(obstruction.getBounds().getX() + offsetX + deltaX);
-//                obstruction.getNode().setTranslateY(obstruction.getBounds().getY() + offsetY + deltaY);
-//            }
+    private void moveObstructionY(Obstruction obstruction) {
+        obstruction.getNode().setTranslateY(
+                obstruction.getBounds().getY() + offsetY + deltaY);
+    }
+
+    private void moveObstructionX(Obstruction obstruction) {
+        obstruction.getNode().setTranslateX(
+                obstruction.getBounds().getX() + offsetX + deltaX);
+    }
+
+    private void setVisibility(Node node) {
+        if (isVisible(node)) {
+            node.setVisible(false);
+        } else {
+            node.setVisible(true);
         }
+    }
 
+
+    private boolean isVisible(Node node) {
+        return node.getTranslateX() < 0 ||
+                node.getTranslateY() < 0 ||
+                node.getTranslateX() > gameScreen.getWidth() ||
+                node.getTranslateY() > gameScreen.getHeight();
     }
 
 

@@ -1,6 +1,7 @@
 package sample;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class MapChunk {
@@ -11,7 +12,7 @@ public class MapChunk {
     private final int biomeLengthCount = 25;
     private double x;
     private double y;
-    private ArrayList<Obstruction> chunk;
+    private List<Obstruction> chunk;
 
 
     public MapChunk(double x, double y, BiomeType biomeType) {
@@ -20,7 +21,7 @@ public class MapChunk {
         this.chunk = createBiome(biomeType);
     }
 
-    private ArrayList<Obstruction> createBiome(BiomeType biomeType) {
+    private List<Obstruction> createBiome(BiomeType biomeType) {
         ArrayList<Obstruction> chunk = new ArrayList<>();
 
 
@@ -59,6 +60,11 @@ public class MapChunk {
     public Obstruction getTile(int id) {
         return chunk.get(id);
     }
+    public List<Obstruction> getChunk() {
+        return chunk;
+    }
+
+
 
     public int getBiomeSize() {
         return chunk.size();
