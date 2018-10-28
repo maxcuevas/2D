@@ -18,19 +18,32 @@ public class Camera {
 
 
     public Camera(Pane gameScreen, Player player) {
+        setGameScreenSizes(gameScreen);
+        setOffsets(player);
+        border = createBorder();
+        gameScreen.getChildren().add(border);
+
+    }
+
+    private void setGameScreenSizes(Pane gameScreen) {
         gameScreenWidth = gameScreen.getWidth();
         gameScreenHeight = gameScreen.getHeight();
+    }
+
+    private void setOffsets(Player player) {
         offsetX = getOffset(gameScreenWidth, player.getView().getTranslateX());
         offsetY = getOffset(gameScreenHeight, player.getView().getTranslateY());
+    }
 
-        border = new Rectangle(0, 0, gameScreenWidth, gameScreenHeight);
+    private Rectangle createBorder() {
+        Rectangle border = new Rectangle(0, 0, gameScreenWidth, gameScreenHeight);
         border.setFill(Color.TRANSPARENT);
         border.setStrokeType(StrokeType.INSIDE);
         border.setStroke(Color.WHITE);
         border.setStrokeWidth(20);
+        border.setMouseTransparent(true);
 
-        gameScreen.getChildren().add(border);
-
+        return border;
     }
 
 
