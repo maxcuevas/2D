@@ -2,26 +2,40 @@ package sample;
 
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.StrokeType;
 
 public class Camera {
 
-    private final double offsetX;
-    private final double offsetY;
-    private double deltaX;
-    private double deltaY;
-    private Pane gameScreen;
+    private static double offsetX;
+    private static double offsetY;
+    private static double deltaX;
+    private static double deltaY;
+    private static double gameScreenWidth;
+    private static double gameScreenHeight;
+    private Rectangle border;
+
 
     public Camera(Pane gameScreen, Player player) {
-        this.gameScreen = gameScreen;
+        gameScreenWidth = gameScreen.getWidth();
+        gameScreenHeight = gameScreen.getHeight();
+        offsetX = getOffset(gameScreenWidth, player.getView().getTranslateX());
+        offsetY = getOffset(gameScreenHeight, player.getView().getTranslateY());
 
-        double playerX = player.getView().getTranslateX();
-        double playerY = player.getView().getTranslateY();
+        border = new Rectangle(0, 0, gameScreenWidth, gameScreenHeight);
+        border.setFill(Color.TRANSPARENT);
+        border.setStrokeType(StrokeType.INSIDE);
+        border.setStroke(Color.WHITE);
+        border.setStrokeWidth(20);
 
-        double gameScreenMidX = gameScreen.getWidth() / 2;
-        double gameScreenMidY = gameScreen.getHeight() / 2;
+        gameScreen.getChildren().add(border);
 
-        offsetX = gameScreenMidX - playerX;
-        offsetY = gameScreenMidY - playerY;
+    }
+
+
+    private double getOffset(double gameScreenSize, double playerPosition) {
+        return (gameScreenSize / 2) - playerPosition;
     }
 
 
@@ -29,6 +43,7 @@ public class Camera {
         getPlayerDeltas(player);
         fixPlayerToCenter(player);
         drawMap(map);
+        border.toFront();
     }
 
     private void drawMap(Map map) {
@@ -45,8 +60,8 @@ public class Camera {
     }
 
     private void fixPlayerToCenter(Player player) {
-        player.getView().setTranslateX(gameScreen.getWidth() / 2);
-        player.getView().setTranslateY(gameScreen.getHeight() / 2);
+        player.getView().setTranslateX(gameScreenWidth / 2);
+        player.getView().setTranslateY(gameScreenHeight / 2);
     }
 
     private void moveObstruction(Obstruction obstruction) {
@@ -75,10 +90,10 @@ public class Camera {
 
 
     private boolean isVisible(Node node) {
-        return node.getTranslateX() < 0 ||
-                node.getTranslateY() < 0 ||
-                node.getTranslateX() > gameScreen.getWidth() ||
-                node.getTranslateY() > gameScreen.getHeight();
+        return node.getBoundsInParent().getMinX() < 0 ||
+                node.getBoundsInParent().getMinY() < 0 ||
+                node.getBoundsInParent().getMaxX() > gameScreenWidth ||
+                node.getBoundsInParent().getMaxY() > gameScreenHeight;
     }
 
 
