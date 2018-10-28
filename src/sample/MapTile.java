@@ -55,12 +55,14 @@ public class MapTile extends Obstruction {
                 return Color.BROWN;
             case WATER:
                 return Color.BLUE;
+            case SAND:
+                return Color.SANDYBROWN;
         }
         return Color.YELLOW;
     }
 
     enum TileType {
-        GRASS, STONE, DIRT, WATER
+        GRASS, STONE, DIRT, WATER, SAND, UNKNOWN
     }
 
 

@@ -3,28 +3,35 @@ package sample;
 import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Map implements IRender {
 
-    public ArrayList<Biome> biomes;
+    public ArrayList<MapChunk> mapChunks;
 
 
     public Map() {
-        this.biomes = new ArrayList<>();
-        this.biomes.add(createMap());
+        this.mapChunks = new ArrayList<>();
+        this.mapChunks.addAll(createMap());
     }
 
-    private Biome createMap() {
-        return new Biome(-150, -150, Biome.BiomeType.PLAIN);
+    private List<MapChunk> createMap() {
+
+        List<MapChunk> mapChunks = new ArrayList<>();
+
+        mapChunks.add(new MapChunk(-150, -150, MapChunk.BiomeType.PLAIN));
+        mapChunks.add(new MapChunk(-150 + (15 *25), -150, MapChunk.BiomeType.DESERT));
+
+        return mapChunks;
     }
 
 
     public void render(Pane gameScreen) {
-        for (Biome biome : biomes) {
-            for (int currentTile = 0; currentTile < biome.getBiomeSize(); currentTile++) {
-                biome.getTile(currentTile).getNode().setTranslateX(biome.getTile(currentTile).getBounds().getX());
-                biome.getTile(currentTile).getNode().setTranslateY(biome.getTile(currentTile).getBounds().getY());
-                gameScreen.getChildren().add(biome.getTile(currentTile).getNode());
+        for (MapChunk mapChunk : mapChunks) {
+            for (int currentTile = 0; currentTile < mapChunk.getBiomeSize(); currentTile++) {
+                mapChunk.getTile(currentTile).getNode().setTranslateX(mapChunk.getTile(currentTile).getBounds().getX());
+                mapChunk.getTile(currentTile).getNode().setTranslateY(mapChunk.getTile(currentTile).getBounds().getY());
+                gameScreen.getChildren().add(mapChunk.getTile(currentTile).getNode());
             }
         }
     }

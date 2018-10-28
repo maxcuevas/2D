@@ -1,47 +1,35 @@
 package sample;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class Biome {
 
-    private final int tileWidth = 15;
-    private final int tileHeight = 15;
-    private final int biomeWidthCount = 25;
-    private final int biomeLengthCount = 25;
-    private double x;
-    private double y;
-    private ArrayList<Obstruction> chunk;
+    List<MapTile.TileType> tileLookUp;
 
-
-
-    public Biome(double x, double y, BiomeType biomeType) {
-        this.x = x;
-        this.y = y;
-        this.chunk = createBiome(biomeType);
+    public Biome(Map<MapTile.TileType, Integer> tileTypeProbabilities) {
+        tileLookUp = createTileLookUp(tileTypeProbabilities);
     }
 
-    private ArrayList<Obstruction> createBiome(BiomeType biomeType) {
-        ArrayList<Obstruction> chunk = new ArrayList<>();
+    public MapTile.TileType getTileType(int i) {
+        return tileLookUp.get(i);
+    }
 
-        for (int row = 0; row < biomeLengthCount; row++) {
-            for (int column = 0; column < biomeWidthCount; column++) {
-                chunk.add(new MapTile(false, -150 + tileWidth * row, -150 + tileHeight * column, tileWidth, tileHeight, MapTile.TileType.WATER));
+    private List<MapTile.TileType> createTileLookUp(java.util.Map<MapTile.TileType, Integer> tileTypeProbabilities) {
+
+        List<MapTile.TileType> tileLookUp = new ArrayList<>();
+
+        for (Map.Entry<MapTile.TileType, Integer> tileTypeProbability : tileTypeProbabilities.entrySet()) {
+            for (int i = 0; i < tileTypeProbability.getValue(); i++) {
+                tileLookUp.add(tileTypeProbability.getKey());
             }
+            int a = 0;
         }
 
-        return chunk;
+        return tileLookUp;
     }
 
-    public Obstruction getTile(int id){
-        return chunk.get(id);
-    }
 
-    public int getBiomeSize(){
-        return chunk.size();
-    }
-
-    enum BiomeType {
-        PLAIN, DESERT
-    }
 
 }

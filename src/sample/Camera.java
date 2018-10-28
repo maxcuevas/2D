@@ -37,13 +37,13 @@ public class Camera {
 
         player.getView().setTranslateY(gameScreen.getHeight() / 2);
 
-        for (Biome biome : map.biomes) {
+        for (MapChunk mapChunk : map.mapChunks) {
 
-            for (int currentObstruction = 0; currentObstruction < biome.getBiomeSize(); currentObstruction++) {
-                biome.getTile(currentObstruction).getNode().setTranslateX(biome.getTile(currentObstruction).getBounds().getX() + offsetX + deltaX);
-                biome.getTile(currentObstruction).getNode().setTranslateY(biome.getTile(currentObstruction).getBounds().getY() + offsetY + deltaY);
+            for (int currentObstruction = 0; currentObstruction < mapChunk.getBiomeSize(); currentObstruction++) {
+                mapChunk.getTile(currentObstruction).getNode().setTranslateX(mapChunk.getTile(currentObstruction).getBounds().getX() + offsetX + deltaX);
+                mapChunk.getTile(currentObstruction).getNode().setTranslateY(mapChunk.getTile(currentObstruction).getBounds().getY() + offsetY + deltaY);
             }
-//            for (Obstruction obstruction : biome) {
+//            for (Obstruction obstruction : mapChunk) {
 //                obstruction.getNode().setTranslateX(obstruction.getBounds().getX() + offsetX + deltaX);
 //                obstruction.getNode().setTranslateY(obstruction.getBounds().getY() + offsetY + deltaY);
 //            }
