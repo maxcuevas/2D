@@ -15,9 +15,11 @@ public class Camera {
     private static double gameScreenWidth;
     private static double gameScreenHeight;
     private Rectangle border;
+    private Pane gameScreen;
 
 
     public Camera(Pane gameScreen, Player player) {
+        this.gameScreen = gameScreen;
         setGameScreenSizes(gameScreen);
         setOffsets(player);
         border = createBorder();
@@ -52,9 +54,12 @@ public class Camera {
     }
 
 
-    public void updateCamera(Player player, Map map) {
+    public void updateCamera(Player player, Map map, boolean mapChange) {
         getPlayerDeltas(player);
         fixPlayerToCenter(player);
+        if(mapChange){
+            map.render(gameScreen);
+        }
         drawMap(map);
         border.toFront();
     }

@@ -16,7 +16,7 @@ public class Player implements IRender {
     private Rectangle2D.Double bounds;
     private Node view = new Rectangle(width, height, Color.BLACK);
     Movement movement = new Movement();
-    Velocity velocity = new Velocity(1.75, 50);
+    Velocity velocity = new Velocity(1.75, 80);
 
 
     public Player(double XPosition, double YPosition) {

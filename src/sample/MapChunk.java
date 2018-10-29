@@ -8,17 +8,53 @@ public class MapChunk {
 
     private final int tileWidth = 15;
     private final int tileHeight = 15;
-    private final int biomeWidthCount = 25;
-    private final int biomeLengthCount = 25;
-    private double x;
-    private double y;
+    private final int biomeWidthCount = 5;
+    private final int biomeLengthCount = 5;
+    private double minX;
+    private double minY;
+    private double maxX;
+    private double maxY;
+    private boolean inRange;
     private List<Obstruction> chunk;
-
-
-    public MapChunk(double x, double y, BiomeType biomeType) {
-        this.x = x;
-        this.y = y;
+    public MapChunk(double minX, double minY, BiomeType biomeType) {
+        this.minX = minX;
+        this.minY = minY;
+        this.maxX = minX + (tileWidth * biomeWidthCount);
+        this.maxY = minY + (tileHeight * biomeLengthCount);
         this.chunk = createBiome(biomeType);
+        this.inRange = true;
+    }
+
+    public int getBiomeWidth() {
+        return tileWidth * biomeWidthCount;
+    }
+
+    public int getBiomeHeight() {
+        return tileHeight * biomeLengthCount;
+    }
+
+    public boolean isInRange() {
+        return inRange;
+    }
+
+    public void setInRange(boolean inRange) {
+        this.inRange = inRange;
+    }
+
+    public double getMinX() {
+        return minX;
+    }
+
+    public double getMinY() {
+        return minY;
+    }
+
+    public double getMaxX() {
+        return maxX;
+    }
+
+    public double getMaxY() {
+        return maxY;
     }
 
     private List<Obstruction> createBiome(BiomeType biomeType) {
@@ -31,21 +67,20 @@ public class MapChunk {
                 for (int column = 0; column < biomeWidthCount; column++) {
                     int randomNum = ThreadLocalRandom.current().nextInt(0, 100);
                     chunk.add(new MapTile(false,
-                            x + tileWidth * row,
-                            y + tileHeight * column,
+                            minX + tileWidth * row,
+                            minY + tileHeight * column,
                             tileWidth, tileHeight,
                             plain.getBiomeTile(randomNum)));
                 }
             }
-        }
-        else if (biomeType.equals(BiomeType.DESERT)) {
+        } else if (biomeType.equals(BiomeType.DESERT)) {
             Desert desert = new Desert();
             for (int row = 0; row < biomeLengthCount; row++) {
                 for (int column = 0; column < biomeWidthCount; column++) {
                     int randomNum = ThreadLocalRandom.current().nextInt(0, 100);
                     chunk.add(new MapTile(false,
-                            x + tileWidth * row,
-                            y + tileHeight * column,
+                            minX + tileWidth * row,
+                            minY + tileHeight * column,
                             tileWidth, tileHeight,
                             desert.getBiomeTile(randomNum)));
                 }
@@ -60,10 +95,10 @@ public class MapChunk {
     public Obstruction getTile(int id) {
         return chunk.get(id);
     }
+
     public List<Obstruction> getChunk() {
         return chunk;
     }
-
 
 
     public int getBiomeSize() {

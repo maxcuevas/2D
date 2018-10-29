@@ -33,8 +33,13 @@ public class GameLoop extends AnimationTimer {
         player.moveX(map, fps.getElapsedTime());
         player.moveY(map, fps.getElapsedTime());
 
+
+
+        boolean mapChange = map.updateMap(player.getX(), player.getY());
+
+
         player.update();
-        camera.updateCamera(player, map);
+        camera.updateCamera(player, map, mapChange);
     }
 
     public void setGameScreen(Pane gameScreen) {
