@@ -58,49 +58,18 @@ public class Map implements IRender {
 
     public boolean updateMap(double playerX, double playerY) {
 
-        boolean result = false;
+        //        if (!isInValidChunk(playerX, playerY)) {
+//
+//            return isXAddition(playerX, minY) || isYAddition(playerY, minX);
+//        }
+//        else{
+//
+//            return false;
+//        }
 
-        if (!isInValidChunk(playerX, playerY)) {
 
-            OptionalDouble minY = getMinY(playerY);
-            result |= isXAddition(playerX, minY);
-
-            OptionalDouble minX = getMinX(playerX);
-            result |= isYAddition(playerY, minX);
-
-
-//            OptionalDouble minX = mapChunks
-//                    .parallelStream()
-//                    .filter(x -> x.getMinX() < playerX && x.getMaxX() > playerX)
-//                    .mapToDouble(x -> x.getMinX()).findFirst();
-//
-//            if (minX.isPresent()) {
-//                List<MapChunk> chunksOnX = mapChunks
-//                        .parallelStream()
-//                        .filter(x -> Double.compare(minX.getAsDouble(), x.getMinX()) == 0)
-//                        .collect(Collectors.toList());
-//
-//                OptionalDouble maxY = chunksOnX.parallelStream().mapToDouble(x -> x.getMaxY()).max();
-//
-//
-//                if (maxY.isPresent() && Double.compare(maxY.getAsDouble(), playerY) == -1) {
-//                    mapChunks.add(createChunk(minX.getAsDouble(), minY.getAsDouble()));
-//                    return true;
-//                }
-//
-//
-//                minY = chunksOnX.parallelStream().mapToDouble(x -> x.getMinY()).min();
-//
-//
-//                if (minY.isPresent() && Double.compare(minY.getAsDouble(), playerX) == 1) {
-//                    mapChunks.add(createChunk(minX.getAsDouble() - mapChunks.get(0).getBiomeWidth(), minY.getAsDouble()));
-//                    return true;
-//                }
-//
-//            }
-        }
-
-        return result;
+        return !isInValidChunk(playerX, playerY) &&
+                (isXAddition(playerX, getMinY(playerY)) || isYAddition(playerY, getMinX(playerX)));
     }
 
     private boolean isXAddition(double playerX, OptionalDouble minY) {
