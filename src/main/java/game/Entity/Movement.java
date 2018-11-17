@@ -1,4 +1,8 @@
-package game;
+package game.Entity;
+
+import game.Map.Map;
+import game.Map.MapChunk;
+import game.Map.Obstruction;
 
 import java.awt.geom.Rectangle2D;
 
@@ -35,8 +39,8 @@ public class Movement {
 
         //now shift everything so that the player is always at dead center
 
-//        for (ArrayList<game.Obstruction> mapRow : mapChunks.mapChunks) {
-//            for (game.Obstruction obstruction : mapRow) {
+//        for (ArrayList<game.Map.Obstruction> mapRow : mapChunks.mapChunks) {
+//            for (game.Map.Obstruction obstruction : mapRow) {
 //                obstruction.getNode().setTranslateX(
 ////                        getNewPosition(Math.signum(proposedMove), obstruction.getNode().getTranslateX(), game.ShapeWrapper.getShapeWidth(intersectedShape)));
 //                                obstruction.getNode().getTranslateX() - proposedMove - getCollisionOffset(Math.signum(proposedMove), game.ShapeWrapper.getShapeWidth(intersectedShape)));
@@ -56,7 +60,7 @@ public class Movement {
                 }
             }
 
-//            for (game.Obstruction obstruction : mapChunk) {
+//            for (game.Map.Obstruction obstruction : mapChunk) {
 //                if (isCollision(obstruction, bounds)) {
 //                    return true;
 //                }

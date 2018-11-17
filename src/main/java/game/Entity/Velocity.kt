@@ -1,4 +1,4 @@
-package game
+package game.Entity
 
 class Velocity(private val sprintFactor: Double, private val baseVelocity: Double) {
 

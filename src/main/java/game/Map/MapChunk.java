@@ -1,4 +1,7 @@
-package game;
+package game.Map;
+
+import game.Biome.Desert;
+import game.Biome.Plain;
 
 import java.util.ArrayList;
 import java.util.List;

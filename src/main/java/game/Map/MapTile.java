@@ -1,4 +1,4 @@
-package game;
+package game.Map;
 
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
@@ -61,7 +61,7 @@ public class MapTile extends Obstruction {
         return Color.YELLOW;
     }
 
-    enum TileType {
+    public enum TileType {
         GRASS, STONE, DIRT, WATER, SAND, UNKNOWN
     }
 

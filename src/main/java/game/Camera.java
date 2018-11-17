@@ -1,5 +1,9 @@
 package game;
 
+import game.Entity.Player;
+import game.Map.Map;
+import game.Map.MapChunk;
+import game.Map.Obstruction;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;

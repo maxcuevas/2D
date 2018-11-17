@@ -1,4 +1,4 @@
-package game;
+package game.Map;
 
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;

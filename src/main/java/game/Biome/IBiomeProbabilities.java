@@ -1,4 +1,6 @@
-package game;
+package game.Biome;
+
+import game.Map.MapTile;
 
 public interface IBiomeProbabilities {
 

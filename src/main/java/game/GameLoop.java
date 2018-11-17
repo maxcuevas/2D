@@ -1,5 +1,7 @@
 package game;
 
+import game.Entity.Player;
+import game.Map.Map;
 import javafx.animation.AnimationTimer;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;

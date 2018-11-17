@@ -1,5 +1,6 @@
-package game;
+package game.Map;
 
+import game.IRender;
 import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;

@@ -1,5 +1,7 @@
-package game;
+package game.Entity;
 
+import game.IRender;
+import game.Map.Map;
 import javafx.scene.Node;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
