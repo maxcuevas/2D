@@ -51,7 +51,7 @@ public class Movement {
         for (MapChunk mapChunk : map.mapChunks) {
 
             for (int currentObstruction = 0; currentObstruction < mapChunk.getBiomeSize(); currentObstruction++) {
-                if (isCollision(mapChunk.getTile(currentObstruction), bounds)){
+                if (isCollision(mapChunk.getTile(currentObstruction), bounds)) {
                     return true;
                 }
             }

@@ -57,17 +57,6 @@ public class Map implements IRender {
     }
 
     public boolean updateMap(double playerX, double playerY) {
-
-        //        if (!isInValidChunk(playerX, playerY)) {
-//
-//            return isXAddition(playerX, minY) || isYAddition(playerY, minX);
-//        }
-//        else{
-//
-//            return false;
-//        }
-
-
         return !isInValidChunk(playerX, playerY) &&
                 (isXAddition(playerX, getMinY(playerY)) || isYAddition(playerY, getMinX(playerX)));
     }

@@ -3,7 +3,7 @@ package game;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Desert implements IBiomeProbabilities{
+public class Desert implements IBiomeProbabilities {
 
     private Biome biome;
 
@@ -13,7 +13,7 @@ public class Desert implements IBiomeProbabilities{
 
     }
 
-    public MapTile.TileType getBiomeTile(int i){
+    public MapTile.TileType getBiomeTile(int i) {
         return biome.getTileType(i);
     }
 

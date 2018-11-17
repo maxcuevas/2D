@@ -34,7 +34,6 @@ public class GameLoop extends AnimationTimer {
         player.moveY(map, fps.getElapsedTime());
 
 
-
         boolean mapChange = map.updateMap(player.getX(), player.getY());
 
 

@@ -1,9 +1,5 @@
 package game;
 
-import game.Biome;
-import game.IBiomeProbabilities;
-import game.MapTile;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,7 +13,7 @@ public class Plain implements IBiomeProbabilities {
 
     }
 
-    public MapTile.TileType getBiomeTile(int i){
+    public MapTile.TileType getBiomeTile(int i) {
         return biome.getTileType(i);
     }
 

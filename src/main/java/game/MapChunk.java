@@ -16,6 +16,7 @@ public class MapChunk {
     private double maxY;
     private boolean inRange;
     private List<Obstruction> chunk;
+
     public MapChunk(double minX, double minY, BiomeType biomeType) {
         this.minX = minX;
         this.minY = minY;

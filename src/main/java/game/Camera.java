@@ -57,7 +57,7 @@ public class Camera {
     public void updateCamera(Player player, Map map, boolean mapChange) {
         getPlayerDeltas(player);
         fixPlayerToCenter(player);
-        if(mapChange){
+        if (mapChange) {
             map.render(gameScreen);
         }
         drawMap(map);

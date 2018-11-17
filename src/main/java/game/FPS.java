@@ -12,7 +12,7 @@ public class FPS {
     public final boolean isCapped = true;
     private final double fps60 = 1000 / 60;
 
-    public FPS(){
+    public FPS() {
         timeStart = System.currentTimeMillis();
         timeEnd = System.currentTimeMillis();
     }
