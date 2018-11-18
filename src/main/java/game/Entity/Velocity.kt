@@ -24,11 +24,11 @@ class Velocity(private val sprintFactor: Double, private val baseVelocity: Doubl
         velocityX = -baseVelocity
     }
 
-    fun resetVelocityY() {
+    private fun resetVelocityY() {
         velocityY = 0.0
     }
 
-    fun resetVelocityX() {
+    private fun resetVelocityX() {
         velocityX = 0.0
     }
 

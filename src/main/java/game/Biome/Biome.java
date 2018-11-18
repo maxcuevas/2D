@@ -26,7 +26,6 @@ public class Biome {
             for (int i = 0; i < tileTypeProbability.getValue(); i++) {
                 tileLookUp.add(tileTypeProbability.getKey());
             }
-            int a = 0;
         }
 
         return tileLookUp;
