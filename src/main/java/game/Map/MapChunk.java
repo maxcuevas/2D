@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class MapChunk {
-
     private final int tileWidth = 15;
     private final int tileHeight = 15;
     private final int biomeWidthCount = 5;
@@ -66,10 +65,10 @@ public class MapChunk {
 
 
         if (biomeType.equals(BiomeType.PLAIN)) {
-            Plain plain = new Plain();
             for (int row = 0; row < biomeLengthCount; row++) {
                 for (int column = 0; column < biomeWidthCount; column++) {
                     int randomNum = ThreadLocalRandom.current().nextInt(0, 100);
+                    Plain plain = new Plain();
                     chunk.add(new MapTile(false,
                             minX + tileWidth * row,
                             minY + tileHeight * column,
@@ -78,10 +77,10 @@ public class MapChunk {
                 }
             }
         } else if (biomeType.equals(BiomeType.DESERT)) {
-            Desert desert = new Desert();
             for (int row = 0; row < biomeLengthCount; row++) {
                 for (int column = 0; column < biomeWidthCount; column++) {
                     int randomNum = ThreadLocalRandom.current().nextInt(0, 100);
+                    Desert desert = new Desert();
                     chunk.add(new MapTile(false,
                             minX + tileWidth * row,
                             minY + tileHeight * column,
@@ -94,7 +93,6 @@ public class MapChunk {
 
         return chunk;
     }
-
 
     public Obstruction getTile(int id) {
         return chunk.get(id);

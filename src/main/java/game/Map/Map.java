@@ -5,6 +5,7 @@ import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Predicate;
 
 public class Map implements IRender {
@@ -26,7 +27,15 @@ public class Map implements IRender {
     }
 
     private MapChunk createChunk(double minX, double minY) {
-        return new MapChunk(minX, minY, MapChunk.BiomeType.PLAIN);
+
+        int randomNum = ThreadLocalRandom.current().nextInt(0, 2);
+
+        if(randomNum == 0){
+            return new MapChunk(minX, minY, MapChunk.BiomeType.PLAIN);
+        }else{
+            return new MapChunk(minX, minY, MapChunk.BiomeType.DESERT);
+        }
+
     }
 
     public void render(Pane gameScreen) {
