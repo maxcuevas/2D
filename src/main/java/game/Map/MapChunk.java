@@ -1,11 +1,16 @@
 package game.Map;
 
 import game.Biome.Desert;
+import game.Biome.IBiomeProbabilities;
 import game.Biome.Plain;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class MapChunk {
     private final int tileWidth = 15;
@@ -61,37 +66,41 @@ public class MapChunk {
     }
 
     private List<Obstruction> createBiome(BiomeType biomeType) {
-        ArrayList<Obstruction> chunk = new ArrayList<>();
 
 
         if (biomeType.equals(BiomeType.PLAIN)) {
-            for (int row = 0; row < biomeLengthCount; row++) {
-                for (int column = 0; column < biomeWidthCount; column++) {
-                    int randomNum = ThreadLocalRandom.current().nextInt(0, 100);
-                    Plain plain = new Plain();
-                    chunk.add(new MapTile(false,
-                            minX + tileWidth * row,
-                            minY + tileHeight * column,
-                            tileWidth, tileHeight,
-                            plain.getBiomeTile(randomNum)));
-                }
-            }
-        } else if (biomeType.equals(BiomeType.DESERT)) {
-            for (int row = 0; row < biomeLengthCount; row++) {
-                for (int column = 0; column < biomeWidthCount; column++) {
-                    int randomNum = ThreadLocalRandom.current().nextInt(0, 100);
-                    Desert desert = new Desert();
-                    chunk.add(new MapTile(false,
-                            minX + tileWidth * row,
-                            minY + tileHeight * column,
-                            tileWidth, tileHeight,
-                            desert.getBiomeTile(randomNum)));
-                }
-            }
+            return getNewBiome(new Plain());
         }
 
+        return getNewBiome(new Desert());
 
-        return chunk;
+    }
+
+    private List<Obstruction> getNewBiome(IBiomeProbabilities iBiomeProbabilities) {
+        List<List<Obstruction>> listOfChunkRows = IntStream
+                .range(0, biomeLengthCount)
+                .mapToObj(row -> getNewChunkRow(iBiomeProbabilities, row))
+                .collect(Collectors.toList());
+
+        return listOfChunkRows
+                .stream()
+                .flatMap(List::stream)
+                .collect(Collectors.toList());
+    }
+
+    private List<Obstruction> getNewChunkRow(IBiomeProbabilities iBiomeProbabilities, int row) {
+        int[] randomNumbers = new Random()
+                .ints(biomeWidthCount, 0, 100)
+                .toArray();
+
+        return IntStream
+                .range(0, biomeWidthCount)
+                .mapToObj(count -> new MapTile(false,
+                        minX + tileWidth * row,
+                        minY + tileHeight * count,
+                        tileWidth, tileHeight,
+                        iBiomeProbabilities.getBiomeTile(randomNumbers[count])))
+                .collect(Collectors.toList());
     }
 
     public Obstruction getTile(int id) {
