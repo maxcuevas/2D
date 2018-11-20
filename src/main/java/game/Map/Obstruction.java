@@ -29,9 +29,6 @@ public class Obstruction {
         this.node = node;
     }
 
-    public void setBounds(double x, double y, double width, double height) {
-        bounds = new Rectangle2D.Double(x, y, width, height);
-    }
 
     public Rectangle2D.Double getBounds() {
         return bounds;
