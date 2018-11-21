@@ -4,10 +4,9 @@ import javafx.scene.Node
 
 import java.awt.geom.Rectangle2D
 
-open class ObstructionData (
+open class ObstructionData(var isObstruction: Boolean,
+                           val bounds: Rectangle2D.Double,
+                           var node: Node) {
 
-    var isObstruction: Boolean,
-    var bounds: Rectangle2D.Double,
-    var node: Node
+}
 
-)

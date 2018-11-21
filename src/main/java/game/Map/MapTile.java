@@ -1,48 +1,47 @@
 package game.Map;
 
+import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeType;
 
-public class MapTile extends Obstruction {
+import java.awt.geom.Rectangle2D;
 
+public class MapTile implements IObstruction {
 
-    Rectangle tile;
+    MapTileData mapTileData;
 
     public MapTile(boolean obstruction, double x, double y, double width, double height, TileType tileType) {
-        super(obstruction, x, y, width, height);
-        createTile(width, height, tileType);
-        this.setNode(tile);
-        this.getNode().setTranslateX(x);
-        this.getNode().setTranslateY(y);
+        mapTileData = new MapTileData(obstruction, x, y, createTile(width, height, tileType));
     }
 
-    private void createTile(double width, double height, TileType tileType) {
-        tile = new Rectangle(width, height);
+    private Rectangle createTile(double width, double height, TileType tileType) {
+        Rectangle tile = new Rectangle(width, height);
         tile.setFill(getTileColor(tileType));
         tile.setStroke(Color.BLACK);
         tile.setStrokeType(StrokeType.INSIDE);
         tile.setStrokeWidth(0);
         setEvents();
+        return tile;
     }
 
     private void setEvents() {
-        tile.addEventHandler(MouseEvent.MOUSE_ENTERED,
-                (event) -> {
-                    tile.setStrokeWidth(2);
-                });
-
-        tile.addEventHandler(MouseEvent.MOUSE_EXITED,
-                (event) -> {
-                    tile.setStrokeWidth(0);
-                });
-
-
-        tile.addEventHandler(MouseEvent.MOUSE_CLICKED,
-                (event) -> {
-                    tile.setFill(Color.BROWN);
-                });
+//        tile.addEventHandler(MouseEvent.MOUSE_ENTERED,
+//                (event) -> {
+//                    tile.setStrokeWidth(2);
+//                });
+//
+//        tile.addEventHandler(MouseEvent.MOUSE_EXITED,
+//                (event) -> {
+//                    tile.setStrokeWidth(0);
+//                });
+//
+//
+//        tile.addEventHandler(MouseEvent.MOUSE_CLICKED,
+//                (event) -> {
+//                    tile.setFill(Color.BROWN);
+//                });
     }
 
     private Color getTileColor(TileType tileType) {
@@ -59,6 +58,21 @@ public class MapTile extends Obstruction {
                 return Color.SANDYBROWN;
         }
         return Color.YELLOW;
+    }
+
+    @Override
+    public boolean isObstruction() {
+        return mapTileData.isObstruction();
+    }
+
+    @Override
+    public Rectangle2D.Double getBounds() {
+        return mapTileData.getBounds();
+    }
+
+    @Override
+    public Node getNode() {
+        return mapTileData.getNode();
     }
 
     public enum TileType {

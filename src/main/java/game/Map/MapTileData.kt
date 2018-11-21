@@ -1,16 +1,16 @@
 package game.Map
 
-import javafx.scene.Node
-import java.awt.*
 import java.awt.geom.Rectangle2D
+import javafx.scene.shape.Rectangle
 
-class MapTileData(var tile: Rectangle,
-                  isObstruction: Boolean,
-                  rectangle: Rectangle2D.Double,
-                  node: Node)
-    : ObstructionData(isObstruction, rectangle, node){
-    val tileWidth: Int = 15
-    val tileHeight: Int = 15
+
+class MapTileData
+    : ObstructionData {
+    constructor(isObstruction: Boolean, x: Double, y:Double, tile: Rectangle)
+            : super(isObstruction, Rectangle2D.Double(
+            x, y, tile.width, tile.height
+    ), tile)
+
 
 }
 

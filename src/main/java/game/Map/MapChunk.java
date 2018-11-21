@@ -22,7 +22,7 @@ public class MapChunk {
     private double maxX;
     private double maxY;
     private boolean inRange;
-    private List<Obstruction> chunk;
+    private List<IObstruction> chunk;
 
     public MapChunk(double minX, double minY, BiomeType biomeType) {
         this.minX = minX;
@@ -65,7 +65,7 @@ public class MapChunk {
         return maxY;
     }
 
-    private List<Obstruction> createBiome(BiomeType biomeType) {
+    private List<IObstruction> createBiome(BiomeType biomeType) {
 
 
         if (biomeType.equals(BiomeType.PLAIN)) {
@@ -76,8 +76,8 @@ public class MapChunk {
 
     }
 
-    private List<Obstruction> getNewBiome(IBiomeProbabilities iBiomeProbabilities) {
-        List<List<Obstruction>> listOfChunkRows = IntStream
+    private List<IObstruction> getNewBiome(IBiomeProbabilities iBiomeProbabilities) {
+        List<List<IObstruction>> listOfChunkRows = IntStream
                 .range(0, biomeLengthCount)
                 .mapToObj(row -> getNewChunkRow(iBiomeProbabilities, row))
                 .collect(Collectors.toList());
@@ -88,7 +88,7 @@ public class MapChunk {
                 .collect(Collectors.toList());
     }
 
-    private List<Obstruction> getNewChunkRow(IBiomeProbabilities iBiomeProbabilities, int row) {
+    private List<IObstruction> getNewChunkRow(IBiomeProbabilities iBiomeProbabilities, int row) {
         int[] randomNumbers = new Random()
                 .ints(biomeWidthCount, 0, 100)
                 .toArray();
@@ -103,11 +103,11 @@ public class MapChunk {
                 .collect(Collectors.toList());
     }
 
-    public Obstruction getTile(int id) {
+    public IObstruction getTile(int id) {
         return chunk.get(id);
     }
 
-    public List<Obstruction> getChunk() {
+    public List<IObstruction> getChunk() {
         return chunk;
     }
 

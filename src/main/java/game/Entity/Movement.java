@@ -1,5 +1,6 @@
 package game.Entity;
 
+import game.Map.IObstruction;
 import game.Map.Map;
 import game.Map.MapChunk;
 import game.Map.Obstruction;
@@ -59,19 +60,13 @@ public class Movement {
                     return true;
                 }
             }
-
-//            for (game.Map.Obstruction obstruction : mapChunk) {
-//                if (isCollision(obstruction, bounds)) {
-//                    return true;
-//                }
-//            }
         }
 
         return false;
     }
 
-    private boolean isCollision(Obstruction obstruction, Rectangle2D.Double bounds) {
-        return !obstruction.getBounds().equals(bounds) && obstruction.getObstruction() && obstruction.getBounds().intersects(bounds);
+    private boolean isCollision(IObstruction iObstruction, Rectangle2D.Double bounds) {
+        return !iObstruction.getBounds().equals(bounds) && iObstruction.isObstruction() && iObstruction.getBounds().intersects(bounds);
     }
 
 }
