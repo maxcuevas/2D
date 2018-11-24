@@ -1,9 +1,9 @@
 package game.Biome;
 
-import game.Map.MapTile;
+import game.Map.MapTileType;
 
 public interface IBiomeProbabilities {
 
-    java.util.Map<MapTile.TileType, Integer> createTileProbabilities();
+    java.util.Map<MapTileType, Integer> createTileProbabilities();
 
 }

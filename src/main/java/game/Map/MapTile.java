@@ -10,17 +10,17 @@ public class MapTile extends Obstruction {
 
     Rectangle tile;
 
-    public MapTile(boolean obstruction, double x, double y, double width, double height, TileType tileType) {
+    public MapTile(boolean obstruction, double x, double y, double width, double height, MapTileType mapTileType) {
         super(obstruction, x, y, width, height);
-        createTile(width, height, tileType);
+        createTile(width, height, mapTileType);
         this.setNode(tile);
         this.getNode().setTranslateX(x);
         this.getNode().setTranslateY(y);
     }
 
-    private void createTile(double width, double height, TileType tileType) {
+    private void createTile(double width, double height, MapTileType mapTileType) {
         tile = new Rectangle(width, height);
-        tile.setFill(getTileColor(tileType));
+        tile.setFill(mapTileType.getColor());
         tile.setStroke(Color.BLACK);
         tile.setStrokeType(StrokeType.INSIDE);
         tile.setStrokeWidth(0);
@@ -45,25 +45,7 @@ public class MapTile extends Obstruction {
                 });
     }
 
-    private Color getTileColor(TileType tileType) {
-        switch (tileType) {
-            case GRASS:
-                return Color.GREEN;
-            case STONE:
-                return Color.GRAY;
-            case DIRT:
-                return Color.BROWN;
-            case WATER:
-                return Color.BLUE;
-            case SAND:
-                return Color.SANDYBROWN;
-        }
-        return Color.YELLOW;
-    }
 
-    public enum TileType {
-        GRASS, STONE, DIRT, WATER, SAND, UNKNOWN
-    }
 
 
 }

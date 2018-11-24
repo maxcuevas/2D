@@ -1,6 +1,6 @@
 package game.Biome;
 
-import game.Map.MapTile;
+import game.Map.MapTileType;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,15 +15,15 @@ public class Desert implements IBiomeProbabilities {
 
     }
 
-    public MapTile.TileType getBiomeTile(int i) {
+    public MapTileType getBiomeTile(int i) {
         return biome.getTileType(i);
     }
 
-    public Map<MapTile.TileType, Integer> createTileProbabilities() {
-        Map<MapTile.TileType, Integer> tileTypeProbability = new HashMap<>();
-        tileTypeProbability.put(MapTile.TileType.WATER, 1);
-        tileTypeProbability.put(MapTile.TileType.SAND, 90);
-        tileTypeProbability.put(MapTile.TileType.STONE, 9);
+    public Map<MapTileType, Integer> createTileProbabilities() {
+        Map<MapTileType, Integer> tileTypeProbability = new HashMap<>();
+        tileTypeProbability.put(MapTileType.WATER, 1);
+        tileTypeProbability.put(MapTileType.SAND, 90);
+        tileTypeProbability.put(MapTileType.STONE, 9);
 
         return tileTypeProbability;
     }
