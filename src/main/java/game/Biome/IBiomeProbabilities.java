@@ -6,4 +6,6 @@ public interface IBiomeProbabilities {
 
     java.util.Map<MapTileType, Integer> createTileProbabilities();
 
+    MapTile.TileType getBiomeTile(int i);
+
 }

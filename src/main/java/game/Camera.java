@@ -1,9 +1,9 @@
 package game;
 
 import game.Entity.Player;
+import game.Map.IObstruction;
 import game.Map.Map;
 import game.Map.MapChunk;
-import game.Map.Obstruction;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -70,8 +70,8 @@ public class Camera {
 
     private void drawMap(Map map) {
         for (MapChunk mapChunk : map.mapChunks) {
-            for (Obstruction obstruction : mapChunk.getChunk()) {
-                moveObstruction(obstruction);
+            for (IObstruction iObstruction : mapChunk.getChunk()) {
+                moveObstruction(iObstruction);
             }
         }
     }
@@ -86,20 +86,20 @@ public class Camera {
         player.getView().setTranslateY(gameScreenHeight / 2);
     }
 
-    private void moveObstruction(Obstruction obstruction) {
-        moveObstructionX(obstruction);
-        moveObstructionY(obstruction);
-        setVisibility(obstruction.getNode());
+    private void moveObstruction(IObstruction iObstruction) {
+        moveObstructionX(iObstruction);
+        moveObstructionY(iObstruction);
+        setVisibility(iObstruction.getNode());
     }
 
-    private void moveObstructionY(Obstruction obstruction) {
-        obstruction.getNode().setTranslateY(
-                obstruction.getBounds().getY() + offsetY + deltaY);
+    private void moveObstructionY(IObstruction iObstruction) {
+        iObstruction.getNode().setTranslateY(
+                iObstruction.getBounds().getY() + offsetY + deltaY);
     }
 
-    private void moveObstructionX(Obstruction obstruction) {
-        obstruction.getNode().setTranslateX(
-                obstruction.getBounds().getX() + offsetX + deltaX);
+    private void moveObstructionX(IObstruction iObstruction) {
+        iObstruction.getNode().setTranslateX(
+                iObstruction.getBounds().getX() + offsetX + deltaX);
     }
 
     private void setVisibility(Node node) {

@@ -1,10 +1,11 @@
 package game.Entity;
 
+import game.Map.IObstruction;
 import game.Map.Map;
 import game.Map.MapChunk;
-import game.Map.Obstruction;
 
 import java.awt.geom.Rectangle2D;
+import java.util.stream.IntStream;
 
 
 public class Movement {
@@ -33,45 +34,27 @@ public class Movement {
 
         return getCollidedShapeIntersection(map, tmp) ? bounds.getX() : tmp.getX();
 
-//        Shape intersectedShape = getCollidedShapeIntersection(mapChunks, tmp);
-//        bounds.add(getNewPosition(Math.signum(proposedMove), bounds.getX(), game.ShapeWrapper.getShapeWidth(intersectedShape)), position.getY());
-//        node.setTranslateX(node.getTranslateX() - proposedMove);
-
-        //now shift everything so that the player is always at dead center
-
-//        for (ArrayList<game.Map.Obstruction> mapRow : mapChunks.mapChunks) {
-//            for (game.Map.Obstruction obstruction : mapRow) {
-//                obstruction.getNode().setTranslateX(
-////                        getNewPosition(Math.signum(proposedMove), obstruction.getNode().getTranslateX(), game.ShapeWrapper.getShapeWidth(intersectedShape)));
-//                                obstruction.getNode().getTranslateX() - proposedMove - getCollisionOffset(Math.signum(proposedMove), game.ShapeWrapper.getShapeWidth(intersectedShape)));
-//            }
-//        }
 
     }
 
 
     private boolean getCollidedShapeIntersection(Map map, Rectangle2D.Double bounds) {
+       return map.mapChunks
+                .stream()
+                .anyMatch(mapChunk -> checkMapChunkForCollision(bounds, mapChunk));
 
-        for (MapChunk mapChunk : map.mapChunks) {
-
-            for (int currentObstruction = 0; currentObstruction < mapChunk.getBiomeSize(); currentObstruction++) {
-                if (isCollision(mapChunk.getTile(currentObstruction), bounds)) {
-                    return true;
-                }
-            }
-
-//            for (game.Map.Obstruction obstruction : mapChunk) {
-//                if (isCollision(obstruction, bounds)) {
-//                    return true;
-//                }
-//            }
-        }
-
-        return false;
     }
 
-    private boolean isCollision(Obstruction obstruction, Rectangle2D.Double bounds) {
-        return !obstruction.getBounds().equals(bounds) && obstruction.getObstruction() && obstruction.getBounds().intersects(bounds);
+    private boolean checkMapChunkForCollision(Rectangle2D.Double bounds, MapChunk mapChunk) {
+        return IntStream
+                .range(0, mapChunk.getBiomeSize())
+                .anyMatch(count -> isCollision(mapChunk.getTile(count), bounds));
+    }
+
+    private boolean isCollision(IObstruction iObstruction, Rectangle2D.Double bounds) {
+        return !iObstruction.getBounds().equals(bounds) &&
+                iObstruction.isObstruction() &&
+                iObstruction.getBounds().intersects(bounds);
     }
 
 }

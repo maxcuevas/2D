@@ -10,9 +10,7 @@ public class Desert implements IBiomeProbabilities {
     private Biome biome;
 
     public Desert() {
-
         biome = new Biome(createTileProbabilities());
-
     }
 
     public MapTileType getBiomeTile(int i) {

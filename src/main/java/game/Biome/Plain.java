@@ -10,9 +10,7 @@ public class Plain implements IBiomeProbabilities {
     private Biome biome;
 
     public Plain() {
-
         biome = new Biome(createTileProbabilities());
-
     }
 
     public MapTileType getBiomeTile(int i) {
