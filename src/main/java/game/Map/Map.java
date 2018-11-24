@@ -43,10 +43,10 @@ public class Map implements IRender {
     public void render(Pane gameScreen) {
         for (MapChunk mapChunk : mapChunks) {
             for (int currentTile = 0; currentTile < mapChunk.mapChunkData.getTileCount(); currentTile++) {
-                if (!gameScreen.getChildren().contains(mapChunk.getTile(currentTile).getNode())) {
+                if (!gameScreen.getChildren().contains(mapChunk.mapChunkData.getTile(currentTile).getNode())) {
                     mapChunk.mapChunkData.getTile(currentTile).getNode().setTranslateX(mapChunk.mapChunkData.getTile(currentTile).getBounds().getX());
-                    mapChunk.mapChunkData.getTile(currentTile).getNode().setTranslateY(mapChunk.getTile(currentTile).getBounds().getY());
-                    gameScreen.getChildren().add(mapChunk.getTile(currentTile).getNode());
+                    mapChunk.mapChunkData.getTile(currentTile).getNode().setTranslateY(mapChunk.mapChunkData.getTile(currentTile).getBounds().getY());
+                    gameScreen.getChildren().add(mapChunk.mapChunkData.getTile(currentTile).getNode());
                 }
             }
 

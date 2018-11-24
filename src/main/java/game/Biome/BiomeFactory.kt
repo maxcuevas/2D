@@ -21,8 +21,8 @@ class BiomeFactory(private val mapTileFactory: MapTileFactory) {
                 .range(0, chunkLength)
                 .mapToObj { count ->
                     mapTileFactory.create(false,
-                            xPos * row,
-                            yPos * count,
+                            xPos + tileSize * row,
+                            yPos + tileSize* count,
                             tileSize,
                             iBiomeProbabilities.getBiomeTile(randomNumbers[count]))
                 }

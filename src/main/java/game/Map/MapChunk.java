@@ -16,45 +16,25 @@ public class MapChunk {
 
     private final int tileLength = 15;
     private final int chunkLength = 5;
-    private double minX;
-    private double minY;
-    private double maxX;
-    private double maxY;
-    private List<Obstruction> chunk;
 
     public MapChunk(double minX, double minY, BiomeType biomeType, MapTileFactory mapTileFactory, BiomeFactory biomeFactory) {
-
         this.mapTileFactory = mapTileFactory;
         this.biomeFactory = biomeFactory;
-        mapChunkData = new MapChunkData(minX, minY, createBiome(biomeType));
-
-        this.minX = minX;
-        this.minY = minY;
-        this.maxX = minX + (tileLength * chunkLength);
-        this.maxY = minY + (tileLength * chunkLength);
-        this.chunk = createBiome(biomeType);
-
-
+        mapChunkData = new MapChunkData(minX, minY, createBiome(biomeType,minX,minY));
     }
 
-
-    private List<Obstruction> createBiome(BiomeType biomeType) {
-
-
+    private List<Obstruction> createBiome(BiomeType biomeType, double minX, double minY) {
         if (biomeType.equals(BiomeType.PLAIN)) {
-            return getNewBiome(new Plain());
+            return getNewBiome(new Plain(), minX, minY);
         }
-
-        return getNewBiome(new Desert());
-
+        return getNewBiome(new Desert(), minX, minY);
     }
 
-    private List<Obstruction> getNewBiome(IBiomeProbabilities iBiomeProbabilities) {
+    private List<Obstruction> getNewBiome(IBiomeProbabilities iBiomeProbabilities, double minX, double minY) {
         List<List<Obstruction>> listOfChunkRows = IntStream
                 .range(0, chunkLength)
-                .mapToObj(row -> getNewChunkRow(iBiomeProbabilities, row))
-//                .mapToObj(row -> biomeFactory.getNewChunkRow(iBiomeProbabilities, row,chunkLength,
-//                        minX + tileLength,minY + tileLength,tileLength))
+                .mapToObj(row -> biomeFactory.getNewChunkRow(iBiomeProbabilities, row,chunkLength,
+                        minX,minY,tileLength))
                 .collect(Collectors.toList());
 
         return listOfChunkRows
@@ -63,28 +43,19 @@ public class MapChunk {
                 .collect(Collectors.toList());
     }
 
-    private List<Obstruction> getNewChunkRow(IBiomeProbabilities iBiomeProbabilities, int row) {
-        int[] randomNumbers = new Random()
-                .ints(chunkLength, 0, 100)
-                .toArray();
-
-        return IntStream
-                .range(0, chunkLength)
-                .mapToObj(count -> mapTileFactory.create(false,
-                        minX + tileLength * row,
-                        minY + tileLength * count,
-                        tileLength,
-                        iBiomeProbabilities.getBiomeTile(randomNumbers[count])))
-                .collect(Collectors.toList());
-    }
-
-    public Obstruction getTile(int id) {
-        return chunk.get(id);
-    }
-
-    public List<Obstruction> getChunk() {
-        return chunk;
-    }
-
+//    private List<Obstruction> getNewChunkRow(IBiomeProbabilities iBiomeProbabilities, int row, double minX, double minY) {
+//        int[] randomNumbers = new Random()
+//                .ints(chunkLength, 0, 100)
+//                .toArray();
+//
+//        return IntStream
+//                .range(0, chunkLength)
+//                .mapToObj(count -> mapTileFactory.create(false,
+//                        minX + (tileLength * row),
+//                        minY + (tileLength * count),
+//                        tileLength,
+//                        iBiomeProbabilities.getBiomeTile(randomNumbers[count])))
+//                .collect(Collectors.toList());
+//    }
 
 }
