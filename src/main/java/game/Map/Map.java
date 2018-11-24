@@ -1,5 +1,7 @@
 package game.Map;
 
+import game.Biome.BiomeFactory;
+import game.Biome.BiomeType;
 import game.IRender;
 import javafx.scene.layout.Pane;
 
@@ -21,7 +23,7 @@ public class Map implements IRender {
 
         List<MapChunk> mapChunks = new ArrayList<>();
 
-        mapChunks.add(new MapChunk(0, 0, MapChunk.BiomeType.PLAIN));
+        mapChunks.add(new MapChunk(0, 0, BiomeType.PLAIN, new MapTileFactory(), new BiomeFactory(new MapTileFactory())));
 
         return mapChunks;
     }
@@ -31,9 +33,9 @@ public class Map implements IRender {
         int randomNum = ThreadLocalRandom.current().nextInt(0, 2);
 
         if(randomNum == 0){
-            return new MapChunk(minX, minY, MapChunk.BiomeType.PLAIN);
+            return new MapChunk(minX, minY, BiomeType.PLAIN, new MapTileFactory(), new BiomeFactory(new MapTileFactory()));
         }else{
-            return new MapChunk(minX, minY, MapChunk.BiomeType.DESERT);
+            return new MapChunk(minX, minY, BiomeType.DESERT, new MapTileFactory(), new BiomeFactory(new MapTileFactory()));
         }
 
     }

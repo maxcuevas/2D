@@ -2,6 +2,7 @@ package game.Entity;
 
 import game.Map.Map;
 import game.Map.MapChunk;
+import game.Map.MapChunkData;
 import game.Map.Obstruction;
 
 import java.awt.geom.Rectangle2D;

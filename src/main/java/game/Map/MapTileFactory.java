@@ -1,22 +1,20 @@
 package game.Map;
 
-import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeType;
 
 import java.awt.geom.Rectangle2D;
 
-public class MapTileFactory implements Obstruction {
+public class MapTileFactory{
 
-    MapTileData mapTileData;
 
-    public MapTileFactory(boolean obstruction, double x, double y, double width, double height, MapTileType mapTileType) {
-        ObstructionImpl obstruction1mpl = new ObstructionImpl(obstruction, new Rectangle2D.Double(x, y, width, height), createTile(width, height, mapTileType));
-        mapTileData = new MapTileData(obstruction1mpl);
+    public MapTileData create(boolean obstruction, double x, double y, double length, MapTileType mapTileType) {
+        ObstructionImpl obstruction1mpl = new ObstructionImpl(obstruction, new Rectangle2D.Double(x, y, length, length), createView(length, length, mapTileType));
+        return new MapTileData(obstruction1mpl);
     }
 
-    private Rectangle createTile(double width, double height, MapTileType mapTileType) {
+    private Rectangle createView(double width, double height, MapTileType mapTileType) {
         Rectangle tile = new Rectangle(width, height);
         tile.setFill(mapTileType.getColor());
         tile.setStroke(Color.BLACK);
@@ -44,19 +42,4 @@ public class MapTileFactory implements Obstruction {
 //                });
     }
 
-
-    @Override
-    public boolean isObstruction() {
-        return mapTileData.isObstruction();
-    }
-
-    @Override
-    public Rectangle2D.Double getBounds() {
-        return mapTileData.getBounds();
-    }
-
-    @Override
-    public Node getNode() {
-        return mapTileData.getNode();
-    }
 }
