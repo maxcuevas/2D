@@ -1,7 +1,6 @@
 package game.Map;
 
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 
 import java.awt.geom.Rectangle2D;
@@ -9,11 +8,11 @@ import java.awt.geom.Rectangle2D;
 
 public class Stone {
 
-    ObstructionData obstructionData;
+    ObstructionImpl obstructionImpl;
 
     public Stone(boolean isObstruction, double x, double y, double width, double height, Color color) {
 
-        obstructionData = new ObstructionData(false,
+        obstructionImpl = new ObstructionImpl(false,
                 new Rectangle2D.Double(x, y, width, height),
                 new Rectangle(x, y, width, height));
 

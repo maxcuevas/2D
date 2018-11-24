@@ -4,11 +4,8 @@ import game.Biome.Desert;
 import game.Biome.IBiomeProbabilities;
 import game.Biome.Plain;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -22,7 +19,7 @@ public class MapChunk {
     private double maxX;
     private double maxY;
     private boolean inRange;
-    private List<IObstruction> chunk;
+    private List<Obstruction> chunk;
 
     public MapChunk(double minX, double minY, BiomeType biomeType) {
         this.minX = minX;
@@ -65,7 +62,7 @@ public class MapChunk {
         return maxY;
     }
 
-    private List<IObstruction> createBiome(BiomeType biomeType) {
+    private List<Obstruction> createBiome(BiomeType biomeType) {
 
 
         if (biomeType.equals(BiomeType.PLAIN)) {
@@ -76,8 +73,8 @@ public class MapChunk {
 
     }
 
-    private List<IObstruction> getNewBiome(IBiomeProbabilities iBiomeProbabilities) {
-        List<List<IObstruction>> listOfChunkRows = IntStream
+    private List<Obstruction> getNewBiome(IBiomeProbabilities iBiomeProbabilities) {
+        List<List<Obstruction>> listOfChunkRows = IntStream
                 .range(0, biomeLengthCount)
                 .mapToObj(row -> getNewChunkRow(iBiomeProbabilities, row))
                 .collect(Collectors.toList());
@@ -88,14 +85,14 @@ public class MapChunk {
                 .collect(Collectors.toList());
     }
 
-    private List<IObstruction> getNewChunkRow(IBiomeProbabilities iBiomeProbabilities, int row) {
+    private List<Obstruction> getNewChunkRow(IBiomeProbabilities iBiomeProbabilities, int row) {
         int[] randomNumbers = new Random()
                 .ints(biomeWidthCount, 0, 100)
                 .toArray();
 
         return IntStream
                 .range(0, biomeWidthCount)
-                .mapToObj(count -> new MapTile(false,
+                .mapToObj(count -> new MapTileFactory(false,
                         minX + tileWidth * row,
                         minY + tileHeight * count,
                         tileWidth, tileHeight,
@@ -103,11 +100,11 @@ public class MapChunk {
                 .collect(Collectors.toList());
     }
 
-    public IObstruction getTile(int id) {
+    public Obstruction getTile(int id) {
         return chunk.get(id);
     }
 
-    public List<IObstruction> getChunk() {
+    public List<Obstruction> getChunk() {
         return chunk;
     }
 

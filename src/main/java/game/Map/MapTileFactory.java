@@ -1,19 +1,19 @@
 package game.Map;
 
 import javafx.scene.Node;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeType;
 
 import java.awt.geom.Rectangle2D;
 
-public class MapTile implements IObstruction {
+public class MapTileFactory implements Obstruction {
 
     MapTileData mapTileData;
 
-    public MapTile(boolean obstruction, double x, double y, double width, double height, TileType tileType) {
-        mapTileData = new MapTileData(obstruction, x, y, createTile(width, height, tileType));
+    public MapTileFactory(boolean obstruction, double x, double y, double width, double height, MapTileType mapTileType) {
+        ObstructionImpl obstruction1mpl = new ObstructionImpl(obstruction, new Rectangle2D.Double(x, y, width, height), createTile(width, height, mapTileType));
+        mapTileData = new MapTileData(obstruction1mpl);
     }
 
     private Rectangle createTile(double width, double height, MapTileType mapTileType) {
@@ -59,10 +59,4 @@ public class MapTile implements IObstruction {
     public Node getNode() {
         return mapTileData.getNode();
     }
-
-    public enum TileType {
-        GRASS, STONE, DIRT, WATER, SAND, UNKNOWN
-    }
-
-
 }

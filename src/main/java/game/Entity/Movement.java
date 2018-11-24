@@ -1,8 +1,8 @@
 package game.Entity;
 
-import game.Map.IObstruction;
 import game.Map.Map;
 import game.Map.MapChunk;
+import game.Map.Obstruction;
 
 import java.awt.geom.Rectangle2D;
 import java.util.stream.IntStream;
@@ -51,10 +51,10 @@ public class Movement {
                 .anyMatch(count -> isCollision(mapChunk.getTile(count), bounds));
     }
 
-    private boolean isCollision(IObstruction iObstruction, Rectangle2D.Double bounds) {
-        return !iObstruction.getBounds().equals(bounds) &&
-                iObstruction.isObstruction() &&
-                iObstruction.getBounds().intersects(bounds);
+    private boolean isCollision(Obstruction obstruction, Rectangle2D.Double bounds) {
+        return !obstruction.getBounds().equals(bounds) &&
+                obstruction.isObstruction() &&
+                obstruction.getBounds().intersects(bounds);
     }
 
 }
