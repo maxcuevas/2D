@@ -42,7 +42,7 @@ public class Map implements IRender {
 
     public void render(Pane gameScreen) {
         for (MapChunk mapChunk : mapChunks) {
-            for (int currentTile = 0; currentTile < mapChunk.getBiomeSize(); currentTile++) {
+            for (int currentTile = 0; currentTile < mapChunk.mapChunkData.getTileCount(); currentTile++) {
                 if (!gameScreen.getChildren().contains(mapChunk.getTile(currentTile).getNode())) {
                     mapChunk.getTile(currentTile).getNode().setTranslateX(mapChunk.getTile(currentTile).getBounds().getX());
                     mapChunk.getTile(currentTile).getNode().setTranslateY(mapChunk.getTile(currentTile).getBounds().getY());
@@ -62,8 +62,8 @@ public class Map implements IRender {
         if (!isInValidChunk(playerX, playerY)) {
             mapChunks.add(
                     createChunk(
-                            getNewMapPosition(playerX, mapChunks.get(0).getBiomeWidth()),
-                            getNewMapPosition(playerY, mapChunks.get(0).getBiomeHeight())));
+                            getNewMapPosition(playerX, mapChunks.get(0).mapChunkData.getSideLength()),
+                            getNewMapPosition(playerY, mapChunks.get(0).mapChunkData.getSideLength())));
             return true;
 
         }
@@ -83,8 +83,8 @@ public class Map implements IRender {
     }
 
     private boolean isInValidChunk(double playerX, double playerY) {
-        Predicate<MapChunk> isInChunk = mapChunk -> isInBounds(mapChunk.getMinX(), playerX, mapChunk.getMaxX())
-                && isInBounds(mapChunk.getMinY(), playerY, mapChunk.getMaxY());
+        Predicate<MapChunk> isInChunk = mapChunk -> isInBounds(mapChunk.mapChunkData.getMinX(), playerX, mapChunk.mapChunkData.getMaxX())
+                && isInBounds(mapChunk.mapChunkData.getMinY(), playerY, mapChunk.mapChunkData.getMaxY());
         return mapChunks
                 .parallelStream()
                 .anyMatch(isInChunk);

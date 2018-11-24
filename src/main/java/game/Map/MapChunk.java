@@ -9,7 +9,7 @@ import java.util.stream.IntStream;
 
 public class MapChunk {
 
-    private MapChunkData mapChunkData;
+    public MapChunkData mapChunkData;
     private BiomeFactory biomeFactory;
 
     private MapTileFactory mapTileFactory;
@@ -37,30 +37,6 @@ public class MapChunk {
 
     }
 
-    public int getBiomeWidth() {
-        return tileLength * chunkLength;
-    }
-
-    public int getBiomeHeight() {
-        return tileLength * chunkLength;
-    }
-
-
-    public double getMinX() {
-        return minX;
-    }
-
-    public double getMinY() {
-        return minY;
-    }
-
-    public double getMaxX() {
-        return maxX;
-    }
-
-    public double getMaxY() {
-        return maxY;
-    }
 
     private List<Obstruction> createBiome(BiomeType biomeType) {
 
@@ -108,11 +84,6 @@ public class MapChunk {
 
     public List<Obstruction> getChunk() {
         return chunk;
-    }
-
-
-    public int getBiomeSize() {
-        return chunk.size();
     }
 
 
