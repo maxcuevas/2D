@@ -5,28 +5,32 @@ import game.Map.MapTileType;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Biome {
 
-    List<MapTileType> tileLookUp;
+    List<MapTileType> mapTileTypeLookUp;
 
     public Biome(Map<MapTileType, Integer> tileTypeProbabilities) {
-        tileLookUp = createTileLookUp(tileTypeProbabilities);
+        mapTileTypeLookUp = createTileLookUp(tileTypeProbabilities);
     }
 
     public MapTileType getTileType(int i) {
-        return tileLookUp.get(i);
+        return mapTileTypeLookUp.get(i);
     }
 
     private List<MapTileType> createTileLookUp(java.util.Map<MapTileType, Integer> tileTypeProbabilities) {
-
         List<MapTileType> tileLookUp = new ArrayList<>();
 
         for (Map.Entry<MapTileType, Integer> tileTypeProbability : tileTypeProbabilities.entrySet()) {
-            for (int i = 0; i < tileTypeProbability.getValue(); i++) {
-                tileLookUp.add(tileTypeProbability.getKey());
-            }
+            tileLookUp.addAll(
+                    IntStream
+                            .range(0, tileTypeProbability.getValue())
+                            .mapToObj(i -> tileTypeProbability.getKey())
+                            .collect(Collectors.toList()));
         }
+
 
         return tileLookUp;
     }

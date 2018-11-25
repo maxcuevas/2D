@@ -32,7 +32,7 @@ class BiomeFactory(private val mapTileFactory: MapTileFactory) {
 
 
     private fun getNewChunkRow(iBiomeProbabilities: IBiomeProbabilities, row: Int, chunkLength: Int,
-                       xPos: Double, yPos: Double, tileSize: Double
+                               xPos: Double, yPos: Double, tileSize: Double
     ): List<Obstruction> {
         val randomNumbers = List(chunkLength) { nextInt(0, 100) }
 
@@ -41,7 +41,7 @@ class BiomeFactory(private val mapTileFactory: MapTileFactory) {
                 .mapToObj { count ->
                     mapTileFactory.create(false,
                             xPos + tileSize * row,
-                            yPos + tileSize* count,
+                            yPos + tileSize * count,
                             tileSize,
                             iBiomeProbabilities.getBiomeTile(randomNumbers[count]))
                 }
