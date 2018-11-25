@@ -1,7 +1,6 @@
 package game.Entity;
 
 import game.Map.Map;
-import game.Map.MapChunk;
 import game.Map.MapChunkData;
 import game.Map.Obstruction;
 
@@ -46,10 +45,10 @@ public class Movement {
 
     }
 
-    private boolean checkMapChunkForCollision(Rectangle2D.Double bounds, MapChunk mapChunk) {
+    private boolean checkMapChunkForCollision(Rectangle2D.Double bounds, MapChunkData mapChunk) {
         return IntStream
-                .range(0, mapChunk.mapChunkData.getTileCount())
-                .anyMatch(count -> isCollision(mapChunk.mapChunkData.getTile(count), bounds));
+                .range(0, mapChunk.getTileCount())
+                .anyMatch(count -> isCollision(mapChunk.getTile(count), bounds));
     }
 
     private boolean isCollision(Obstruction obstruction, Rectangle2D.Double bounds) {

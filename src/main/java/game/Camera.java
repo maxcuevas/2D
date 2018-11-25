@@ -2,7 +2,6 @@ package game;
 
 import game.Entity.Player;
 import game.Map.Map;
-import game.Map.MapChunk;
 import game.Map.MapChunkData;
 import game.Map.Obstruction;
 import javafx.scene.Node;
@@ -70,8 +69,8 @@ public class Camera {
     }
 
     private void drawMap(Map map) {
-        for (MapChunk mapChunk : map.mapChunks) {
-            for (Obstruction obstruction : mapChunk.mapChunkData.getChunk()) {
+        for (MapChunkData mapChunk : map.mapChunks) {
+            for (Obstruction obstruction : mapChunk.getChunk()) {
                 moveObstruction(obstruction);
             }
         }

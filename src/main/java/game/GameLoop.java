@@ -1,7 +1,10 @@
 package game;
 
+import game.Biome.BiomeFactory;
 import game.Entity.Player;
 import game.Map.Map;
+import game.Map.MapChunkFactory;
+import game.Map.MapTileFactory;
 import javafx.animation.AnimationTimer;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
@@ -44,7 +47,7 @@ public class GameLoop extends AnimationTimer {
     }
 
     public void setGameScreen(Pane gameScreen) {
-        map = new Map();
+        map = new Map(new MapChunkFactory(new BiomeFactory(new MapTileFactory())));
         map.render(gameScreen);
         player = new Player(10, 10);
         player.render(gameScreen);
