@@ -1,7 +1,7 @@
 package game.Entity;
 
 import game.Map.Map;
-import game.Map.MapChunkData;
+import game.Map.MapChunk;
 import game.Map.Obstruction;
 
 import java.awt.geom.Rectangle2D;
@@ -45,7 +45,7 @@ public class Movement {
 
     }
 
-    private boolean checkMapChunkForCollision(Rectangle2D.Double bounds, MapChunkData mapChunk) {
+    private boolean checkMapChunkForCollision(Rectangle2D.Double bounds, MapChunk mapChunk) {
         return IntStream
                 .range(0, mapChunk.getTileCount())
                 .anyMatch(count -> isCollision(mapChunk.getTile(count), bounds));

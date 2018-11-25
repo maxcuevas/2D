@@ -10,14 +10,14 @@ import kotlin.random.Random.Default.nextInt
 class BiomeFactory(private val mapTileFactory: MapTileFactory) {
 
 
-    fun createBiome(biomeType: BiomeType, minX: Double, minY: Double, chunkLength: Int, tileLength: Int): List<Obstruction> {
+    fun getBiome(biomeType: BiomeType, minX: Double, minY: Double, chunkLength: Int, tileLength: Int): List<Obstruction> {
         return if (biomeType == BiomeType.PLAIN) {
-            getNewBiome(Plain(), minX, minY, chunkLength, tileLength)
-        } else getNewBiome(Desert(), minX, minY, chunkLength, tileLength)
+            createBiome(Plain(), minX, minY, chunkLength, tileLength)
+        } else createBiome(Desert(), minX, minY, chunkLength, tileLength)
     }
 
 
-    private fun getNewBiome(iBiomeProbabilities: IBiomeProbabilities, minX: Double, minY: Double, chunkLength: Int, tileLength: Int): List<Obstruction> {
+    private fun createBiome(iBiomeProbabilities: IBiomeProbabilities, minX: Double, minY: Double, chunkLength: Int, tileLength: Int): List<Obstruction> {
         val listOfChunkRows = IntStream
                 .range(0, chunkLength)
                 .mapToObj { row ->

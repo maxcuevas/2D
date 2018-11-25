@@ -8,8 +8,8 @@ import java.awt.geom.Rectangle2D
 class MapTileFactory {
 
 
-    fun create(obstruction: Boolean, x: Double, y: Double, length: Double, mapTileType: MapTileType): MapTileData {
-        return MapTileData(ObstructionImpl(obstruction, Rectangle2D.Double(x, y, length, length), createView(length, length, mapTileType)))
+    fun create(obstruction: Boolean, x: Double, y: Double, length: Double, mapTileType: MapTileType): MapTile {
+        return MapTile(ObstructionImpl(obstruction, Rectangle2D.Double(x, y, length, length), createView(length, length, mapTileType)))
     }
 
     private fun createView(width: Double, height: Double, mapTileType: MapTileType): Rectangle {

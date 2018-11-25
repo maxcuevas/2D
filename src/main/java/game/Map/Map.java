@@ -5,49 +5,40 @@ import game.IRender;
 import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Predicate;
 
 public class Map implements IRender {
 
-    public ArrayList<MapChunkData> mapChunks;
+    public ArrayList<MapChunk> mapChunks;
     private MapChunkFactory mapChunkFactory;
 
     public Map(MapChunkFactory mapChunkFactory) {
         this.mapChunkFactory = mapChunkFactory;
         this.mapChunks = new ArrayList<>();
-        this.mapChunks.addAll(createMap());
+        this.mapChunks.add(mapChunkFactory.create(0, 0, BiomeType.PLAIN));
     }
 
-    private List<MapChunkData> createMap() {
-
-        List<MapChunkData> mapChunkFactories = new ArrayList<>();
-
-        mapChunkFactories.add(mapChunkFactory.create(0, 0, BiomeType.PLAIN));
-
-        return mapChunkFactories;
-    }
-
-    private MapChunkData createChunk(double minX, double minY) {
+    private MapChunk createChunk(double minX, double minY) {
 
         int randomNum = ThreadLocalRandom.current().nextInt(0, 2);
 
-        if(randomNum == 0){
+        if (randomNum == 0) {
             return mapChunkFactory.create(minX, minY, BiomeType.PLAIN);
-        }else{
+        } else {
             return mapChunkFactory.create(minX, minY, BiomeType.DESERT);
         }
 
     }
 
     public void render(Pane gameScreen) {
-        for (MapChunkData mapChunk : mapChunks) {
+        for (MapChunk mapChunk : mapChunks) {
             for (int currentTile = 0; currentTile < mapChunk.getTileCount(); currentTile++) {
-                if (!gameScreen.getChildren().contains(mapChunk.getTile(currentTile).getNode())) {
-                    mapChunk.getTile(currentTile).getNode().setTranslateX(mapChunk.getTile(currentTile).getBounds().getX());
-                    mapChunk.getTile(currentTile).getNode().setTranslateY(mapChunk.getTile(currentTile).getBounds().getY());
-                    gameScreen.getChildren().add(mapChunk.getTile(currentTile).getNode());
+                Obstruction tile = mapChunk.getTile(currentTile);
+                if (!gameScreen.getChildren().contains(tile.getNode())) {
+                    tile.getNode().setTranslateX(tile.getBounds().getX());
+                    tile.getNode().setTranslateY(tile.getBounds().getY());
+                    gameScreen.getChildren().add(tile.getNode());
                 }
             }
 
@@ -84,7 +75,7 @@ public class Map implements IRender {
     }
 
     private boolean isInValidChunk(double playerX, double playerY) {
-        Predicate<MapChunkData> isInChunk = mapChunk -> isInBounds(mapChunk.getMinX(), playerX, mapChunk.getMaxX())
+        Predicate<MapChunk> isInChunk = mapChunk -> isInBounds(mapChunk.getMinX(), playerX, mapChunk.getMaxX())
                 && isInBounds(mapChunk.getMinY(), playerY, mapChunk.getMaxY());
         return mapChunks
                 .parallelStream()

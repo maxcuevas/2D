@@ -1,6 +1,6 @@
 package game.Map
 
-class MapChunkData(
+class MapChunk(
         val minX: Double,
         val minY: Double,
         val chunk: List<Obstruction>) {
