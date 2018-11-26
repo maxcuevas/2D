@@ -20,15 +20,11 @@ public class Map implements IRender {
     }
 
     private MapChunk createChunk(double minX, double minY) {
-
         int randomNum = ThreadLocalRandom.current().nextInt(0, 2);
 
         if (randomNum == 0) {
             MapChunk mapChunk = mapChunkFactory.create(minX, minY, BiomeType.PLAIN);
-            StoneFactory stoneFactory = new StoneFactory();
-            Stone e = stoneFactory.create(minX, minY);
-            mapChunk.getChunk().add(e);
-            e.getNode().toFront();
+            mapChunk.getChunk().add(new StoneFactory().create(minX + 10, minY + 10));
             return mapChunk;
         } else {
             return mapChunkFactory.create(minX, minY, BiomeType.DESERT);

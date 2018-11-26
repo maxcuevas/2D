@@ -20,8 +20,7 @@ public class Plain implements IBiomeProbabilities {
     public Map<MapTileType, Integer> createTileProbabilities() {
         Map<MapTileType, Integer> tileTypeProbability = new HashMap<>();
         tileTypeProbability.put(MapTileType.GRASS, 90);
-        tileTypeProbability.put(MapTileType.STONE, 5);
-        tileTypeProbability.put(MapTileType.DIRT, 5);
+        tileTypeProbability.put(MapTileType.DIRT, 10);
 
         return tileTypeProbability;
     }
