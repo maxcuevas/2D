@@ -3,7 +3,9 @@ package game.Map
 class MapChunk(
         val minX: Double,
         val minY: Double,
-        val chunk: List<Obstruction>) {
+        val obstructions: List<Obstruction>,
+        val tileItems: List<Obstruction>
+) {
 
 
     private val tileLength: Int = 15
@@ -14,11 +16,11 @@ class MapChunk(
     val maxY: Double = minY + sideLength
 
     fun getTile(i: Int): Obstruction {
-        return chunk[i]
+        return obstructions[i]
     }
 
     fun getObstructionCount(): Int {
-        return chunk.size
+        return obstructions.size
     }
 
 }

@@ -11,9 +11,15 @@ class BiomeFactory(private val mapTileFactory: MapTileFactory) {
 
 
     fun getBiome(biomeType: BiomeType, minX: Double, minY: Double, chunkLength: Int, tileLength: Int): List<Obstruction> {
+        return createBiome(getBiomeProbabilities(biomeType), minX, minY, chunkLength, tileLength)
+    }
+
+    private fun getBiomeProbabilities(biomeType: BiomeType): IBiomeProbabilities {
         return if (biomeType == BiomeType.PLAIN) {
-            createBiome(Plain(), minX, minY, chunkLength, tileLength)
-        } else createBiome(Desert(), minX, minY, chunkLength, tileLength)
+            Plain()
+        } else {
+            Desert()
+        }
     }
 
 

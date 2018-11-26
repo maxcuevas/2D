@@ -1,12 +1,10 @@
 package game.Map;
 
-import game.Biome.BiomeType;
 import game.IRender;
-import javafx.scene.layout.Pane;
-
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Predicate;
+import javafx.scene.layout.Pane;
 
 public class Map implements IRender {
 
@@ -16,21 +14,20 @@ public class Map implements IRender {
     public Map(MapChunkFactory mapChunkFactory) {
         this.mapChunkFactory = mapChunkFactory;
         this.mapChunks = new ArrayList<>();
-        this.mapChunks.add(mapChunkFactory.create(0, 0, BiomeType.PLAIN));
+        this.mapChunks.add(mapChunkFactory.newPlainsChunk(0, 0));
     }
 
     private MapChunk createChunk(double minX, double minY) {
         int randomNum = ThreadLocalRandom.current().nextInt(0, 2);
 
         if (randomNum == 0) {
-            MapChunk mapChunk = mapChunkFactory.create(minX, minY, BiomeType.PLAIN);
-            mapChunk.getChunk().add(new StoneFactory().create(minX + 10, minY + 10));
-            return mapChunk;
+            return mapChunkFactory.newPlainsChunk(minX, minY);
         } else {
-            return mapChunkFactory.create(minX, minY, BiomeType.DESERT);
+            return mapChunkFactory.newDesert(minX, minY);
         }
 
     }
+
 
     public void render(Pane gameScreen) {
         for (MapChunk mapChunk : mapChunks) {
