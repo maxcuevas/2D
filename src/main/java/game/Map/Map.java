@@ -24,7 +24,12 @@ public class Map implements IRender {
         int randomNum = ThreadLocalRandom.current().nextInt(0, 2);
 
         if (randomNum == 0) {
-            return mapChunkFactory.create(minX, minY, BiomeType.PLAIN);
+            MapChunk mapChunk = mapChunkFactory.create(minX, minY, BiomeType.PLAIN);
+            StoneFactory stoneFactory = new StoneFactory();
+            Stone e = stoneFactory.create(minX, minY);
+            mapChunk.getChunk().add(e);
+            e.getNode().toFront();
+            return mapChunk;
         } else {
             return mapChunkFactory.create(minX, minY, BiomeType.DESERT);
         }
@@ -33,12 +38,13 @@ public class Map implements IRender {
 
     public void render(Pane gameScreen) {
         for (MapChunk mapChunk : mapChunks) {
-            for (int currentTile = 0; currentTile < mapChunk.getTileCount(); currentTile++) {
-                Obstruction tile = mapChunk.getTile(currentTile);
-                if (!gameScreen.getChildren().contains(tile.getNode())) {
-                    tile.getNode().setTranslateX(tile.getBounds().getX());
-                    tile.getNode().setTranslateY(tile.getBounds().getY());
-                    gameScreen.getChildren().add(tile.getNode());
+            for (int currentObstruction = 0; currentObstruction < mapChunk.getObstructionCount(); currentObstruction++) {
+                Obstruction obstruction = mapChunk.getTile(currentObstruction);
+
+                if (!gameScreen.getChildren().contains(obstruction.getNode())) {
+                    obstruction.getNode().setTranslateX(obstruction.getBounds().getX());
+                    obstruction.getNode().setTranslateY(obstruction.getBounds().getY());
+                    gameScreen.getChildren().add(obstruction.getNode());
                 }
             }
 

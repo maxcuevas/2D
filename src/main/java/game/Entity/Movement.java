@@ -47,7 +47,7 @@ public class Movement {
 
     private boolean checkMapChunkForCollision(Rectangle2D.Double bounds, MapChunk mapChunk) {
         return IntStream
-                .range(0, mapChunk.getTileCount())
+                .range(0, mapChunk.getObstructionCount())
                 .anyMatch(count -> isCollision(mapChunk.getTile(count), bounds));
     }
 
