@@ -1,5 +1,6 @@
 package game.Biome
 
+import game.Map.MapTile
 import game.Map.MapTileFactory
 import game.Map.Obstruction
 import java.util.stream.Collectors
@@ -10,7 +11,7 @@ import kotlin.random.Random.Default.nextInt
 class BiomeFactory(private val mapTileFactory: MapTileFactory) {
 
 
-    fun getBiome(biomeType: BiomeType, minX: Double, minY: Double, chunkLength: Int, tileLength: Int): List<Obstruction> {
+    fun getBiome(biomeType: BiomeType, minX: Double, minY: Double, chunkLength: Int, tileLength: Int): List<MapTile> {
         return createBiome(getBiomeProbabilities(biomeType), minX, minY, chunkLength, tileLength)
     }
 
@@ -23,7 +24,7 @@ class BiomeFactory(private val mapTileFactory: MapTileFactory) {
     }
 
 
-    private fun createBiome(iBiomeProbabilities: IBiomeProbabilities, minX: Double, minY: Double, chunkLength: Int, tileLength: Int): List<Obstruction> {
+    private fun createBiome(iBiomeProbabilities: IBiomeProbabilities, minX: Double, minY: Double, chunkLength: Int, tileLength: Int): List<MapTile> {
         val listOfChunkRows = IntStream
                 .range(0, chunkLength)
                 .mapToObj { row ->
@@ -39,7 +40,7 @@ class BiomeFactory(private val mapTileFactory: MapTileFactory) {
 
     private fun getNewChunkRow(iBiomeProbabilities: IBiomeProbabilities, row: Int, chunkLength: Int,
                                xPos: Double, yPos: Double, tileSize: Double
-    ): List<Obstruction> {
+    ): List<MapTile> {
         val randomNumbers = List(chunkLength) { nextInt(0, 100) }
 
         return IntStream

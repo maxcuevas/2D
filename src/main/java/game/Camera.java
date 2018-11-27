@@ -70,7 +70,7 @@ public class Camera {
 
     private void drawMap(Map map) {
         for (MapChunk mapChunk : map.mapChunks) {
-            for (Obstruction obstruction : mapChunk.getObstructions()) {
+            for (Obstruction obstruction : mapChunk.getMapTiles()) {
                 moveObstruction(obstruction);
             }
         }

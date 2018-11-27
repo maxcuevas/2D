@@ -1,14 +1,19 @@
 package game.Map;
 
 import game.IRender;
+import javafx.scene.Node;
+import javafx.scene.layout.Pane;
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Predicate;
-import javafx.scene.layout.Pane;
+import java.util.stream.Collectors;
 
 public class Map implements IRender {
 
-    public ArrayList<MapChunk> mapChunks;
+    public List<MapChunk> mapChunks;
     private MapChunkFactory mapChunkFactory;
 
     public Map(MapChunkFactory mapChunkFactory) {
@@ -23,25 +28,44 @@ public class Map implements IRender {
         if (randomNum == 0) {
             return mapChunkFactory.newPlainsChunk(minX, minY);
         } else {
-            return mapChunkFactory.newDesert(minX, minY);
+            return mapChunkFactory.newDesertChunk(minX, minY);
         }
 
     }
 
 
     public void render(Pane gameScreen) {
-        for (MapChunk mapChunk : mapChunks) {
-            for (int currentObstruction = 0; currentObstruction < mapChunk.getObstructionCount(); currentObstruction++) {
-                Obstruction obstruction = mapChunk.getTile(currentObstruction);
+        mapChunks.forEach(mapChunk-> updateRenderedMapTiles(gameScreen, mapChunk));
+    }
 
-                if (!gameScreen.getChildren().contains(obstruction.getNode())) {
-                    obstruction.getNode().setTranslateX(obstruction.getBounds().getX());
-                    obstruction.getNode().setTranslateY(obstruction.getBounds().getY());
-                    gameScreen.getChildren().add(obstruction.getNode());
-                }
-            }
+    private void updateRenderedMapTiles(Pane gameScreen, MapChunk mapChunk) {
+        List<MapTile> newMapTiles = getNewMapTiles(gameScreen, mapChunk);
+        newMapTiles.forEach(this::setMapTileNodePosition);
+        gameScreen.getChildren().addAll(getMapTiles(newMapTiles));
+    }
 
-        }
+    @NotNull
+    private List<Node> getMapTiles(List<MapTile> newMapTiles) {
+        return newMapTiles.stream()
+                .map(MapTile::getNode)
+                .collect(Collectors.toList());
+    }
+
+    @NotNull
+    private List<MapTile> getNewMapTiles(Pane gameScreen, MapChunk mapChunk) {
+        return mapChunk.getMapTiles()
+                .stream()
+                .filter(mapTile -> !doesGameScreenContain(gameScreen, mapTile))
+                .collect(Collectors.toList());
+    }
+
+    private void setMapTileNodePosition(MapTile mapTile) {
+        mapTile.getNode().setTranslateX(mapTile.getBounds().getX());
+        mapTile.getNode().setTranslateY(mapTile.getBounds().getY());
+    }
+
+    private boolean doesGameScreenContain(Pane gameScreen, MapTile mapTile) {
+        return gameScreen.getChildren().contains(mapTile.getNode());
     }
 
     @Override

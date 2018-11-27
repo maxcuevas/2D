@@ -8,7 +8,7 @@ class MapChunkFactory(private val biomeFactory: BiomeFactory, private val stoneF
     private val tileLength = 15
     private val chunkLength = 5
 
-    fun create(minX: Double, minY: Double, biomeType: BiomeType, mapItems: List<Obstruction>): MapChunk {
+    private fun create(minX: Double, minY: Double, biomeType: BiomeType, mapItems: List<Obstruction>): MapChunk {
         val mapTiles = biomeFactory.getBiome(biomeType, minX, minY, chunkLength, tileLength)
         return MapChunk(minX, minY, mapTiles, mapItems)
     }
@@ -19,7 +19,7 @@ class MapChunkFactory(private val biomeFactory: BiomeFactory, private val stoneF
         return create(minX, minY, BiomeType.PLAIN, listOf(stone))
     }
 
-    fun newDesert(minX: Double, minY: Double): MapChunk {
+    fun newDesertChunk(minX: Double, minY: Double): MapChunk {
         return create(minX, minY, BiomeType.DESERT, listOf())
     }
 
