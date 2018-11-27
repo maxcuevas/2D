@@ -33,9 +33,13 @@ public class Map implements IRender {
 
     }
 
-
     public void render(Pane gameScreen) {
+        updateRenderedMap(gameScreen);
+    }
+
+    private void updateRenderedMap(Pane gameScreen) {
         mapChunks.forEach(mapChunk-> updateRenderedMapTiles(gameScreen, mapChunk));
+        mapChunks.forEach(mapChunk-> updateRenderedItems(gameScreen, mapChunk));
     }
 
     private void updateRenderedMapTiles(Pane gameScreen, MapChunk mapChunk) {
@@ -44,10 +48,23 @@ public class Map implements IRender {
         gameScreen.getChildren().addAll(getMapTiles(newMapTiles));
     }
 
+    private void updateRenderedItems(Pane gameScreen, MapChunk mapChunk) {
+        List<Obstruction> newItems = getNewItems(gameScreen, mapChunk);
+        newItems.forEach(this::setMapTileNodePosition);
+        gameScreen.getChildren().addAll(getItems(newItems));
+    }
+
     @NotNull
     private List<Node> getMapTiles(List<MapTile> newMapTiles) {
         return newMapTiles.stream()
                 .map(MapTile::getNode)
+                .collect(Collectors.toList());
+    }
+
+    @NotNull
+    private List<Node> getItems(List<Obstruction> newMapTiles) {
+        return newMapTiles.stream()
+                .map(Obstruction::getNode)
                 .collect(Collectors.toList());
     }
 
@@ -59,13 +76,21 @@ public class Map implements IRender {
                 .collect(Collectors.toList());
     }
 
-    private void setMapTileNodePosition(MapTile mapTile) {
-        mapTile.getNode().setTranslateX(mapTile.getBounds().getX());
-        mapTile.getNode().setTranslateY(mapTile.getBounds().getY());
+    @NotNull
+    private List<Obstruction> getNewItems(Pane gameScreen, MapChunk mapChunk) {
+        return mapChunk.getItems()
+                .stream()
+                .filter(mapTile -> !doesGameScreenContain(gameScreen, mapTile))
+                .collect(Collectors.toList());
     }
 
-    private boolean doesGameScreenContain(Pane gameScreen, MapTile mapTile) {
-        return gameScreen.getChildren().contains(mapTile.getNode());
+    private void setMapTileNodePosition(Obstruction obstruction) {
+        obstruction.getNode().setTranslateX(obstruction.getBounds().getX());
+        obstruction.getNode().setTranslateY(obstruction.getBounds().getY());
+    }
+
+    private boolean doesGameScreenContain(Pane gameScreen, Obstruction obstruction) {
+        return gameScreen.getChildren().contains(obstruction.getNode());
     }
 
     @Override
