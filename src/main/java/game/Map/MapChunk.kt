@@ -4,7 +4,7 @@ class MapChunk(
         val minX: Double,
         val minY: Double,
         val mapTiles: List<MapTile>,
-        val tileItems: List<Obstruction>
+        val items: List<Obstruction>
 ) {
 
 

@@ -1,14 +1,14 @@
-package game;
+package game.Camera;
 
 import game.Entity.Player;
 import game.Map.Map;
 import game.Map.MapChunk;
-import game.Map.Obstruction;
-import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeType;
+
+import java.util.List;
 
 public class Camera {
 
@@ -21,14 +21,15 @@ public class Camera {
     private Rectangle border;
     private Pane gameScreen;
 
+    private ObstructionDrawer obstructionDrawer;
 
-    public Camera(Pane gameScreen, Player player) {
+    public Camera(Pane gameScreen, Player player, ObstructionDrawer obstructionDrawer) {
         this.gameScreen = gameScreen;
         setGameScreenSizes(gameScreen);
         setOffsets(player);
         border = createBorder();
         gameScreen.getChildren().add(border);
-
+        this.obstructionDrawer = obstructionDrawer;
     }
 
     private void setGameScreenSizes(Pane gameScreen) {
@@ -53,10 +54,10 @@ public class Camera {
     }
 
 
+
     private double getOffset(double gameScreenSize, double playerPosition) {
         return (gameScreenSize / 2) - playerPosition;
     }
-
 
     public void updateCamera(Player player, Map map, boolean mapChange) {
         getPlayerDeltas(player);
@@ -64,17 +65,12 @@ public class Camera {
         if (mapChange) {
             map.render(gameScreen);
         }
-        drawMap(map);
+        obstructionDrawer.drawMap(map,gameScreenWidth,
+                gameScreenHeight,offsetY+deltaY,
+                offsetX+deltaX);
         border.toFront();
     }
 
-    private void drawMap(Map map) {
-        for (MapChunk mapChunk : map.mapChunks) {
-            for (Obstruction obstruction : mapChunk.getMapTiles()) {
-                moveObstruction(obstruction);
-            }
-        }
-    }
 
     private void getPlayerDeltas(Player player) {
         deltaX = -player.getX();
@@ -84,38 +80,6 @@ public class Camera {
     private void fixPlayerToCenter(Player player) {
         player.getView().setTranslateX(gameScreenWidth / 2);
         player.getView().setTranslateY(gameScreenHeight / 2);
-    }
-
-    private void moveObstruction(Obstruction obstruction) {
-        moveObstructionX(obstruction);
-        moveObstructionY(obstruction);
-        setVisibility(obstruction.getNode());
-    }
-
-    private void moveObstructionY(Obstruction obstruction) {
-        obstruction.getNode().setTranslateY(
-                obstruction.getBounds().getY() + offsetY + deltaY);
-    }
-
-    private void moveObstructionX(Obstruction obstruction) {
-        obstruction.getNode().setTranslateX(
-                obstruction.getBounds().getX() + offsetX + deltaX);
-    }
-
-    private void setVisibility(Node node) {
-        if (isVisible(node)) {
-            node.setVisible(false);
-        } else {
-            node.setVisible(true);
-        }
-    }
-
-
-    private boolean isVisible(Node node) {
-        return node.getBoundsInParent().getMinX() < 0 ||
-                node.getBoundsInParent().getMinY() < 0 ||
-                node.getBoundsInParent().getMaxX() > gameScreenWidth ||
-                node.getBoundsInParent().getMaxY() > gameScreenHeight;
     }
 
 

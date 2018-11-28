@@ -1,6 +1,10 @@
 package game;
 
 import game.Biome.BiomeFactory;
+import game.Camera.Camera;
+import game.Camera.ObstructionDrawer;
+import game.Camera.ObstructionMover;
+import game.Camera.ObstructionVisibility;
 import game.Entity.Player;
 import game.Map.Map;
 import game.Map.MapChunkFactory;
@@ -52,7 +56,7 @@ public class GameLoop extends AnimationTimer {
         map.render(gameScreen);
         player = new Player(10, 10);
         player.render(gameScreen);
-        camera = new Camera(gameScreen, player);
+        camera = new Camera(gameScreen, player, new ObstructionDrawer(new ObstructionVisibility(),new ObstructionMover()));
     }
 
 
