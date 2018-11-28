@@ -8,18 +8,18 @@ import java.util.List;
 public class ObstructionDrawer {
 
     private ObstructionVisibility obstructionVisibility;
-    private  ObstructionMover obstructionMover;
+    private ObstructionMover obstructionMover;
 
-    public ObstructionDrawer(ObstructionVisibility obstructionVisibility,ObstructionMover obstructionMover){
+    public ObstructionDrawer(ObstructionVisibility obstructionVisibility, ObstructionMover obstructionMover) {
         this.obstructionVisibility = obstructionVisibility;
         this.obstructionMover = obstructionMover;
     }
 
     public void drawMap(Map map, Double gameScreenWidth, Double gameScreenHeight, Double offsetAndDeltaY, Double offsetAndDeltaX) {
-        drawMapTiles(map.mapChunks,offsetAndDeltaY,offsetAndDeltaX);
-        drawItems(map.mapChunks,offsetAndDeltaY,offsetAndDeltaX);
-        setMapTileVisibility(map,gameScreenWidth,gameScreenHeight);
-        setItemVisibility(map,gameScreenWidth,gameScreenHeight);
+        drawMapTiles(map.mapChunks, offsetAndDeltaY, offsetAndDeltaX);
+        drawItems(map.mapChunks, offsetAndDeltaY, offsetAndDeltaX);
+        setMapTileVisibility(map, gameScreenWidth, gameScreenHeight);
+        setItemVisibility(map, gameScreenWidth, gameScreenHeight);
     }
 
 
