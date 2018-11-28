@@ -33,7 +33,6 @@ public class Map implements IRender {
 
     }
 
-
     public void render(Pane gameScreen) {
         mapChunks.forEach(mapChunk -> updateRenderedMapTiles(gameScreen, mapChunk));
         mapChunks.forEach(mapChunk -> updateRenderedItems(gameScreen, mapChunk));
