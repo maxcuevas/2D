@@ -2,13 +2,10 @@ package game.Camera;
 
 import game.Entity.Player;
 import game.Map.Map;
-import game.Map.MapChunk;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeType;
-
-import java.util.List;
 
 public class Camera {
 
@@ -65,7 +62,7 @@ public class Camera {
         if (mapChange) {
             map.render(gameScreen);
         }
-        obstructionDrawer.drawMap(map,gameScreenWidth,
+        obstructionDrawer.drawMap(map.mapChunks, gameScreenWidth,
                 gameScreenHeight,offsetY+deltaY,
                 offsetX+deltaX);
         border.toFront();
