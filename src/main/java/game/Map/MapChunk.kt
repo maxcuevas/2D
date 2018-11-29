@@ -1,10 +1,10 @@
 package game.Map
 
 class MapChunk(
-        val minX: Double,
-        val minY: Double,
-        val mapTiles: List<MapTile>,
-        val items: List<Obstruction>
+        val minX: Double = 0.0,
+        val minY: Double = 0.0,
+        val mapTiles: List<MapTile> = listOf(),
+        val items: List<Obstruction> = listOf()
 ) {
 
 
