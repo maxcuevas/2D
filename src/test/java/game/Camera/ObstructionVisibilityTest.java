@@ -1,29 +1,57 @@
 package game.Camera;
 
 
-import static org.assertj.core.api.Assertions.assertThat;
-
+import javafx.scene.Node;
+import javafx.scene.shape.Rectangle;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 
-@RunWith(MockitoJUnitRunner.class)
 public class ObstructionVisibilityTest {
 
-  String string;
+    private ObstructionVisibility subject;
+    private double width;
+    private double height;
 
-  @Before
-  public void setUp() throws Exception {
-  }
+    @Before
+    public void setUp() {
+        subject = new ObstructionVisibility();
+        height = 10;
+        width = 10;
+    }
 
-  @Test
-  public void setVisibility() {
+    @Test
+    public void setVisibility_givenNodeInScreen_returnTrue() {
+        Node node = new Rectangle(1.0, 1.0, 1.0, 1.0);
+        assertTrue(subject.isVisible(node, width, height));
+    }
 
-    string = "";
+    @Test
+    public void setVisibility_givenNodeLeftOfScreen_returnFalse() {
+        Node node = new Rectangle(-1.0, 1.0, 1.0, 1.0);
+        assertFalse(subject.isVisible(node, width, height));
+    }
 
-    assertThat(string).isEqualTo("");
-  }
+    @Test
+    public void setVisibility_givenNodeAboveScreen_returnFalse() {
+        Node node = new Rectangle(1.0, -1.0, 1.0, 1.0);
+        assertFalse(subject.isVisible(node, width, height));
+    }
+
+    @Test
+    public void setVisibility_givenNodeRightOfScreen_returnFalse() {
+        Node node = new Rectangle(11.0, 1.0, 1.0, 1.0);
+        assertFalse(subject.isVisible(node, width, height));
+    }
+
+    @Test
+    public void setVisibility_givenNodeBelowScreen_returnFalse() {
+        Node node = new Rectangle(1.0, 11.0, 1.0, 1.0);
+        assertFalse(subject.isVisible(node, width, height));
+    }
+
+
 }

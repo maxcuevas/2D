@@ -1,6 +1,7 @@
 package game.Camera
 
 import game.Map.MapChunk
+import game.Map.MapTile
 import game.Map.Obstruction
 
 class ObstructionDrawer(private val obstructionVisibility: ObstructionVisibility, private val obstructionMover: ObstructionMover) {
@@ -34,23 +35,13 @@ class ObstructionDrawer(private val obstructionVisibility: ObstructionVisibility
     }
 
     private fun setItemVisibility(items: List<Obstruction>, gameScreenWidth: Double, gameScreenHeight: Double) {
-        items
-                .forEach { x ->
-                    obstructionVisibility.setVisibility(
-                            x.node,
-                            gameScreenWidth,
-                            gameScreenHeight)
-                }
+        val itemsToHide: List<Obstruction> = items.filter { item -> !obstructionVisibility.isVisible(item.node, gameScreenWidth, gameScreenHeight) }
+        itemsToHide.map { mapTile -> mapTile.node.isVisible = false }
     }
 
-    private fun setMapTileVisibility(mapTiles: List<Obstruction>, gameScreenWidth: Double, gameScreenHeight: Double) {
-        mapTiles
-                .forEach { x ->
-                    obstructionVisibility.setVisibility(
-                            x.node,
-                            gameScreenWidth,
-                            gameScreenHeight)
-                }
+    private fun setMapTileVisibility(mapTiles: List<MapTile>, gameScreenWidth: Double, gameScreenHeight: Double) {
+        val mapTilesToHide: List<MapTile> = mapTiles.filter { mapTile -> !obstructionVisibility.isVisible(mapTile.node, gameScreenWidth, gameScreenHeight) }
+        mapTilesToHide.map { mapTile -> mapTile.node.isVisible = false }
     }
 
 }
