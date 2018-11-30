@@ -24,33 +24,40 @@ public class ObstructionVisibilityTest {
     }
 
     @Test
-    public void setVisibility_givenNodeInScreen_returnTrue() {
+    public void setObstruction_givenNodeInScreen_returnTrue() {
         Node node = new Rectangle(1.0, 1.0, 1.0, 1.0);
-        assertTrue(subject.isVisible(node, width, height));
+        subject.setVisibility(node, width, height);
+
+        assertTrue(node.isVisible());
     }
 
     @Test
-    public void setVisibility_givenNodeLeftOfScreen_returnFalse() {
+    public void setObstruction_givenNodeLeftOfScreen_returnFalse() {
         Node node = new Rectangle(-1.0, 1.0, 1.0, 1.0);
-        assertFalse(subject.isVisible(node, width, height));
+        subject.setVisibility(node, width, height);
+        assertFalse(node.isVisible());
     }
 
     @Test
-    public void setVisibility_givenNodeAboveScreen_returnFalse() {
+    public void setObstruction_givenNodeAboveScreen_returnFalse() {
         Node node = new Rectangle(1.0, -1.0, 1.0, 1.0);
-        assertFalse(subject.isVisible(node, width, height));
+        subject.setVisibility(node, width, height);
+        assertFalse(node.isVisible());
     }
 
     @Test
-    public void setVisibility_givenNodeRightOfScreen_returnFalse() {
+    public void setObstruction_givenNodeRightOfScreen_returnFalse() {
         Node node = new Rectangle(11.0, 1.0, 1.0, 1.0);
-        assertFalse(subject.isVisible(node, width, height));
+        subject.setVisibility(node, width, height);
+        assertFalse(node.isVisible());
     }
 
     @Test
-    public void setVisibility_givenNodeBelowScreen_returnFalse() {
+    public void setObstruction_givenNodeBelowScreen_returnFalse() {
         Node node = new Rectangle(1.0, 11.0, 1.0, 1.0);
-        assertFalse(subject.isVisible(node, width, height));
+        subject.setVisibility(node, width, height);
+
+        assertFalse(node.isVisible());
     }
 
 
