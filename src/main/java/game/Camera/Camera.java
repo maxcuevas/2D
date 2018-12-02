@@ -16,6 +16,8 @@ public class Camera {
 
     private static double offsetX;
     private static double offsetY;
+    private double oldPlayerPosY;
+    private double oldPlayerPosX;
     private static double deltaX;
     private static double deltaY;
     private static double gameScreenWidth;
@@ -28,7 +30,11 @@ public class Camera {
     public Camera(Pane gameScreen, Player player, ObstructionDrawer obstructionDrawer) {
         this.gameScreen = gameScreen;
         setGameScreenSizes(gameScreen);
-        setOffsets(player);
+        setOffsets(player.getView());
+
+        oldPlayerPosX = player.getView().getTranslateX();
+        oldPlayerPosY = player.getView().getTranslateY();
+
         border = createBorder();
 //        gameScreen.getChildren().add(border);
         this.obstructionDrawer = obstructionDrawer;
@@ -39,9 +45,9 @@ public class Camera {
         gameScreenHeight = gameScreen.getHeight();
     }
 
-    private void setOffsets(Player player) {
-        offsetX = getOffset(gameScreenWidth, player.getView().getTranslateX());
-        offsetY = getOffset(gameScreenHeight, player.getView().getTranslateY());
+    private void setOffsets(Node player) {
+        offsetX = getOffset(gameScreenWidth, player.getTranslateX());
+        offsetY = getOffset(gameScreenHeight, player.getTranslateY());
     }
 
     private Rectangle createBorder() {
@@ -62,45 +68,49 @@ public class Camera {
 
     public void updateCamera(Player player, Map map, boolean mapChange) {
         getPlayerDeltas(player);
-        fixPlayerToCenter(player);
-//        if (mapChange) {
-//            map.render(gameScreen);
-//        }
 
 
-        List<Node> mapTiles = getMapTiles(map);
+        List<Rectangle> mapTiles = getMapTiles(map);
         mapTiles.addAll(getMapItems(map));
+        Rectangle playerImage = getPlayer(player);
 
-        obstructionDrawer.getMapTilesAndItems(mapTiles, gameScreenWidth,
+        deltaY = oldPlayerPosY - playerImage.getY();
+        deltaX = oldPlayerPosX - playerImage.getX();
+
+        obstructionDrawer.draw(mapTiles, gameScreenWidth,
                 gameScreenHeight, offsetY + deltaY,
                 offsetX + deltaX);
 
         gameScreen.getChildren().clear();
         gameScreen.getChildren().addAll(mapTiles);
-        gameScreen.getChildren().addAll(getPlayers(player));
-        gameScreen.getChildren().add(border);
+        gameScreen.getChildren().add(playerImage);
+        fixPlayerToCenter(playerImage);
+
+//        gameScreen.getChildren().add(border);
 
 
 //        border.toFront();
 
+        offsetX += deltaX;
+        offsetY += deltaY;
+        oldPlayerPosY = playerImage.getY();
+        oldPlayerPosX = playerImage.getX();
     }
 
-    private List<Node> getPlayers(Player player) {
-        List<Node> players = new ArrayList<>();
+    private Rectangle getPlayer(Player player) {
 
         double x = player.getX();
         double y = player.getY();
         double width = 10;
         double height = 10;
-        Rectangle rectangle = new Rectangle(x, y, width, height);
-        rectangle.setFill(Color.BLACK);
-        players.add(rectangle);
+        Rectangle playerbounds = new Rectangle(x, y, width, height);
+        playerbounds.setFill(Color.BLACK);
 
-        return players;
+        return playerbounds;
     }
 
-    private List<Node> getMapItems(Map map) {
-        List<Node> items = new ArrayList<>();
+    private List<Rectangle> getMapItems(Map map) {
+        List<Rectangle> items = new ArrayList<>();
 
         for (Obstruction mapItems : map.getMapItems()) {
             double x = mapItems.getBounds().x;
@@ -115,8 +125,8 @@ public class Camera {
         return items;
     }
 
-    private List<Node> getMapTiles(Map map) {
-        List<Node> mapTiles = new ArrayList<>();
+    private List<Rectangle> getMapTiles(Map map) {
+        List<Rectangle> mapTiles = new ArrayList<>();
 
         for (Obstruction mapTile : map.getMapTiles()) {
             double x = mapTile.getBounds().x;
@@ -137,9 +147,9 @@ public class Camera {
         deltaY = -player.getY();
     }
 
-    private void fixPlayerToCenter(Player player) {
-        player.getView().setTranslateX(gameScreenWidth / 2);
-        player.getView().setTranslateY(gameScreenHeight / 2);
+    private void fixPlayerToCenter(Rectangle player) {
+        player.setTranslateX(gameScreenWidth / 2);
+        player.setTranslateY(gameScreenHeight / 2);
     }
 
 
