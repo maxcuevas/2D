@@ -28,7 +28,7 @@ public class Map {
 
     }
 
-    public List<ObstructionNoNode> getMapItems() {
+    public List<Obstruction> getMapItems() {
         return mapChunks
                 .stream()
                 .map(MapChunk::getItems)

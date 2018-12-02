@@ -11,7 +11,7 @@ class MapChunkFactory(private val biomeFactory: BiomeFactory, private val stoneF
     private val tileLength = 15
     private val chunkLength = 5
 
-    private fun create(minX: Double, minY: Double, mapTiles: List<MapTile>, mapItems: MutableList<ObstructionNoNode>): MapChunk {
+    private fun create(minX: Double, minY: Double, mapTiles: List<MapTile>, mapItems: MutableList<Obstruction>): MapChunk {
         return MapChunk(minX, minY, mapTiles, mapItems)
     }
 
@@ -21,7 +21,7 @@ class MapChunkFactory(private val biomeFactory: BiomeFactory, private val stoneF
 
         val mapTilesThatStonesWillBeMadeOn = mapTiles.filter { Random.nextInt(0, 10000) < 300 }
 
-        val collect: MutableList<ObstructionNoNode> = IntStream.range(0, mapTilesThatStonesWillBeMadeOn.size)
+        val collect: MutableList<Obstruction> = IntStream.range(0, mapTilesThatStonesWillBeMadeOn.size)
                 .mapToObj { count -> stoneFactory.create(mapTilesThatStonesWillBeMadeOn[count].obstruction.bounds.x, mapTilesThatStonesWillBeMadeOn[count].obstruction.bounds.y) }
                 .collect(Collectors.toList())
 

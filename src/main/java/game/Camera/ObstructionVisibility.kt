@@ -3,12 +3,7 @@ package game.Camera
 import javafx.scene.Node
 
 class ObstructionVisibility {
-
-    fun setVisibility(node: Node, gameScreenWidth: Double, gameScreenHeight: Double) {
-        node.isVisible = isVisible(node, gameScreenWidth, gameScreenHeight)
-    }
-
-    private fun isVisible(node: Node, gameScreenWidth: Double, gameScreenHeight: Double): Boolean {
+    fun isVisible(node: Node, gameScreenWidth: Double, gameScreenHeight: Double): Boolean {
         return areNodeXsInBounds(node, gameScreenWidth) && areNodeYsInBounds(node, gameScreenHeight)
     }
 

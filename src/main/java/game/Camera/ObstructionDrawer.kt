@@ -1,33 +1,38 @@
 package game.Camera
 
-import game.Map.MapChunk
-import game.Map.Obstruction
+import javafx.scene.Node
 
 class ObstructionDrawer(private val obstructionVisibility: ObstructionVisibility, private val obstructionMover: ObstructionMover) {
+    fun getMapTilesAndItems(mapTilesAndItems: List<Node>, gameScreenWidth: Double, gameScreenHeight: Double, offsetAndDeltaY: Double, offsetAndDeltaX: Double) {
 
-    fun drawMap(mapChunks: List<MapChunk>, gameScreenWidth: Double, gameScreenHeight: Double, offsetAndDeltaY: Double, offsetAndDeltaX: Double) {
-        mapChunks.forEach { mapChunk -> moveObstructions(mapChunk.mapTiles, offsetAndDeltaY, offsetAndDeltaX) }
-//        mapChunks.forEach { mapChunk -> moveObstructions(mapChunk.items, offsetAndDeltaY, offsetAndDeltaX) }
-        mapChunks.forEach { mapChunk -> setObstructionsVisibility(mapChunk.mapTiles, gameScreenWidth, gameScreenHeight) }
-//        mapChunks.forEach { mapChunk -> setObstructionsVisibility(mapChunk.items, gameScreenWidth, gameScreenHeight) }
 
-//        mapChunks.forEach { mapChunk -> mapChunk.items.forEach { item -> item.node.toFront() } }
+        setNodesVisibility(mapTilesAndItems, offsetAndDeltaY, offsetAndDeltaX)
+
+//        mapTilesAndItems.forEach { mapChunk -> moveNodes(mapChunk.items, offsetAndDeltaY, offsetAndDeltaX) }
+//        mapTilesAndItems.forEach { mapChunk -> setNodesVisibility(mapChunk.mapTiles, gameScreenWidth, gameScreenHeight) }
+//        mapTilesAndItems.forEach { mapChunk -> setNodesVisibility(mapChunk.items, gameScreenWidth, gameScreenHeight) }
+//
+//        mapTilesAndItems.forEach { mapChunk -> mapChunk.items.forEach { item -> item.node.toFront() } }
     }
 
+//    private fun moveNodes(nodes: List<Node>, : List<> offsetAndDeltaY: Double, offsetAndDeltaX: Double) {
+//        nodes
+//                .forEach { obstruction ->
+//                    obstruction.translateX
+//                    obstructionMover.getNodeX(
+//                            obstruction,
+//                            offsetAndDeltaX)
+//                }
+//        nodes
+//                .forEach { obstruction ->
+//                    obstruction.translateY
+//                    obstructionMover.getNodeY(
+//                            obstruction,
+//                            offsetAndDeltaY)
+//                }
+//    }
 
-    private fun moveObstructions(obstructions: List<Obstruction>, offsetAndDeltaY: Double, offsetAndDeltaX: Double) {
-        obstructions
-                .forEach { obstruction ->
-                    obstructionMover.move(
-                            obstruction,
-                            offsetAndDeltaY,
-                            offsetAndDeltaX)
-                }
+    private fun setNodesVisibility(nodes: List<Node>, gameScreenWidth: Double, gameScreenHeight: Double) {
+        nodes.map { node -> obstructionVisibility.isVisible(node, gameScreenWidth, gameScreenHeight) }
     }
-
-
-    private fun setObstructionsVisibility(obstructions: List<Obstruction>, gameScreenWidth: Double, gameScreenHeight: Double) {
-        obstructions.map { obstruction -> obstructionVisibility.setVisibility(obstruction.node, gameScreenWidth, gameScreenHeight) }
-    }
-
 }

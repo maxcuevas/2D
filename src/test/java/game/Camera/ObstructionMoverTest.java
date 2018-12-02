@@ -1,6 +1,7 @@
 package game.Camera;
 
 
+import game.Map.Obstruction;
 import game.Map.ObstructionImpl;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,7 +16,7 @@ public class ObstructionMoverTest {
 
     private ObstructionMover subject;
 
-    private ObstructionImpl obstruction;
+    private Obstruction obstruction;
 
     @Before
     public void setUp() {
@@ -26,14 +27,14 @@ public class ObstructionMoverTest {
     @Test
     public void move_givenValueForY_returnObstructionsNodeMovedY() {
         double deltaY = 10.0;
-        subject.move(obstruction, deltaY, 0.0);
-        assertThat(obstruction.getNode().getTranslateY()).isEqualTo(10);
+        double actual = subject.getNodeY(obstruction.getBounds(), deltaY);
+        assertThat(actual).isEqualTo(deltaY);
     }
 
     @Test
     public void move_givenValueForX_returnObstructionsNodeMovedX() {
         double deltaX = 10.0;
-        subject.move(obstruction, 0.0, deltaX);
-        assertThat(obstruction.getNode().getTranslateX()).isEqualTo(10);
+        double actual = subject.getNodeX(obstruction.getBounds(), deltaX);
+        assertThat(actual).isEqualTo(deltaX);
     }
 }

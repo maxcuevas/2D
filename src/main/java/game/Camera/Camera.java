@@ -3,7 +3,6 @@ package game.Camera;
 import game.Entity.Player;
 import game.Map.Map;
 import game.Map.Obstruction;
-import game.Map.ObstructionNoNode;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -31,7 +30,7 @@ public class Camera {
         setGameScreenSizes(gameScreen);
         setOffsets(player);
         border = createBorder();
-        gameScreen.getChildren().add(border);
+//        gameScreen.getChildren().add(border);
         this.obstructionDrawer = obstructionDrawer;
     }
 
@@ -62,21 +61,28 @@ public class Camera {
     }
 
     public void updateCamera(Player player, Map map, boolean mapChange) {
-//        getPlayerDeltas(player);
-//        fixPlayerToCenter(player);
+        getPlayerDeltas(player);
+        fixPlayerToCenter(player);
 //        if (mapChange) {
 //            map.render(gameScreen);
 //        }
-//        obstructionDrawer.drawMap(map.mapChunks, gameScreenWidth,
-//                gameScreenHeight,offsetY+deltaY,
-//                offsetX+deltaX);
-//        border.toFront();
-//
+
+
+        List<Node> mapTiles = getMapTiles(map);
+        mapTiles.addAll(getMapItems(map));
+
+        obstructionDrawer.getMapTilesAndItems(mapTiles, gameScreenWidth,
+                gameScreenHeight, offsetY + deltaY,
+                offsetX + deltaX);
 
         gameScreen.getChildren().clear();
-        gameScreen.getChildren().addAll(getMapTiles(map));
-        gameScreen.getChildren().addAll(getMapItems(map));
+        gameScreen.getChildren().addAll(mapTiles);
         gameScreen.getChildren().addAll(getPlayers(player));
+        gameScreen.getChildren().add(border);
+
+
+//        border.toFront();
+
     }
 
     private List<Node> getPlayers(Player player) {
@@ -96,7 +102,7 @@ public class Camera {
     private List<Node> getMapItems(Map map) {
         List<Node> items = new ArrayList<>();
 
-        for (ObstructionNoNode mapItems : map.getMapItems()) {
+        for (Obstruction mapItems : map.getMapItems()) {
             double x = mapItems.getBounds().x;
             double y = mapItems.getBounds().y;
             double width = mapItems.getBounds().width;
