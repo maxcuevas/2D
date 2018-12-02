@@ -32,8 +32,8 @@ public class Camera {
         setGameScreenSizes(gameScreen);
         setOffsets(player.getView());
 
-        oldPlayerPosX = player.getView().getTranslateX();
-        oldPlayerPosY = player.getView().getTranslateY();
+        oldPlayerPosX = 0.0;
+        oldPlayerPosY = 0.0;
 
         border = createBorder();
 //        gameScreen.getChildren().add(border);
@@ -67,7 +67,7 @@ public class Camera {
     }
 
     public void updateCamera(Player player, Map map, boolean mapChange) {
-        getPlayerDeltas(player);
+//        getPlayerDeltas(player);
 
 
         List<Rectangle> mapTiles = getMapTiles(map);
@@ -83,11 +83,15 @@ public class Camera {
 
         gameScreen.getChildren().clear();
         gameScreen.getChildren().addAll(mapTiles);
-        gameScreen.getChildren().add(playerImage);
-        fixPlayerToCenter(playerImage);
 
-//        gameScreen.getChildren().add(border);
+        Rectangle playerbounds = new Rectangle(gameScreenWidth/2, gameScreenHeight/2, 10, 10);
+        playerbounds.setFill(Color.BLACK);
 
+        gameScreen.getChildren().add(playerbounds);
+
+        gameScreen.getChildren().add(border);
+
+//        fixPlayerToCenter(playerImage);
 
 //        border.toFront();
 

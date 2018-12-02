@@ -28,6 +28,6 @@ class ObstructionDrawer(private val obstructionVisibility: ObstructionVisibility
     }
 
     private fun setNodesVisibility(nodes: List<Node>, gameScreenWidth: Double, gameScreenHeight: Double) {
-        nodes.map { node -> obstructionVisibility.isVisible(node, gameScreenWidth, gameScreenHeight) }
+        nodes.map { node -> node.isVisible =  obstructionVisibility.isVisible(node, gameScreenWidth, gameScreenHeight) }
     }
 }
