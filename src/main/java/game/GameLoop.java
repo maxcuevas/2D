@@ -53,9 +53,9 @@ public class GameLoop extends AnimationTimer {
 
     public void setGameScreen(Pane gameScreen) {
         map = new Map(new MapChunkFactory(new BiomeFactory(new MapTileFactory()), new StoneFactory()));
-        map.render(gameScreen);
+//        map.render(gameScreen);
         player = new Player(10, 10);
-        player.render(gameScreen);
+//        player.render(gameScreen);
         camera = new Camera(gameScreen, player, new ObstructionDrawer(new ObstructionVisibility(),new ObstructionMover()));
     }
 

@@ -16,7 +16,7 @@ class StoneFactory {
         circle.stroke = Color.BLACK
         circle.strokeWidth = 0.0
         setEvents(circle)
-        return Stone(ObstructionImpl(false, Rectangle2D.Double(x, y, width, height), circle))
+        return Stone(ObstructionImplNoNode(false, Rectangle2D.Double(x, y, width, height)))
     }
 
 

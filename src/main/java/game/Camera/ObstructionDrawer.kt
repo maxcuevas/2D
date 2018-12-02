@@ -7,11 +7,11 @@ class ObstructionDrawer(private val obstructionVisibility: ObstructionVisibility
 
     fun drawMap(mapChunks: List<MapChunk>, gameScreenWidth: Double, gameScreenHeight: Double, offsetAndDeltaY: Double, offsetAndDeltaX: Double) {
         mapChunks.forEach { mapChunk -> moveObstructions(mapChunk.mapTiles, offsetAndDeltaY, offsetAndDeltaX) }
-        mapChunks.forEach { mapChunk -> moveObstructions(mapChunk.items, offsetAndDeltaY, offsetAndDeltaX) }
+//        mapChunks.forEach { mapChunk -> moveObstructions(mapChunk.items, offsetAndDeltaY, offsetAndDeltaX) }
         mapChunks.forEach { mapChunk -> setObstructionsVisibility(mapChunk.mapTiles, gameScreenWidth, gameScreenHeight) }
-        mapChunks.forEach { mapChunk -> setObstructionsVisibility(mapChunk.items, gameScreenWidth, gameScreenHeight) }
+//        mapChunks.forEach { mapChunk -> setObstructionsVisibility(mapChunk.items, gameScreenWidth, gameScreenHeight) }
 
-        mapChunks.forEach { mapChunk -> mapChunk.items.forEach { item -> item.node.toFront() } }
+//        mapChunks.forEach { mapChunk -> mapChunk.items.forEach { item -> item.node.toFront() } }
     }
 
 
