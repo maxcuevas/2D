@@ -30,7 +30,7 @@ public class Camera {
     public Camera(Pane gameScreen, Player player, ObstructionDrawer obstructionDrawer) {
         this.gameScreen = gameScreen;
         setGameScreenSizes(gameScreen);
-        setOffsets(player.getView());
+        setOffsets(player);
 
         oldPlayerPosX = 0.0;
         oldPlayerPosY = 0.0;
@@ -45,9 +45,9 @@ public class Camera {
         gameScreenHeight = gameScreen.getHeight();
     }
 
-    private void setOffsets(Node player) {
-        offsetX = getOffset(gameScreenWidth, player.getTranslateX());
-        offsetY = getOffset(gameScreenHeight, player.getTranslateY());
+    private void setOffsets(Player player) {
+        offsetX = getOffset(gameScreenWidth, player.getX());
+        offsetY = getOffset(gameScreenHeight, player.getY());
     }
 
     private Rectangle createBorder() {
@@ -66,7 +66,7 @@ public class Camera {
         return (gameScreenSize / 2) - playerPosition;
     }
 
-    public void updateCamera(Player player, Map map, boolean mapChange) {
+    public void updateCamera(Player player, Map map) {
 //        getPlayerDeltas(player);
 
 
@@ -146,15 +146,6 @@ public class Camera {
     }
 
 
-    private void getPlayerDeltas(Player player) {
-        deltaX = -player.getX();
-        deltaY = -player.getY();
-    }
-
-    private void fixPlayerToCenter(Rectangle player) {
-        player.setTranslateX(gameScreenWidth / 2);
-        player.setTranslateY(gameScreenHeight / 2);
-    }
 
 
 }

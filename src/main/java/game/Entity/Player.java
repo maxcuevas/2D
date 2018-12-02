@@ -12,11 +12,10 @@ import java.awt.geom.Rectangle2D;
 import java.util.Set;
 
 
-public class Player implements IRender {
+public class Player {
     private final int width = 10;
     private final int height = 10;
     private Rectangle2D.Double bounds;
-    private Node view = new Rectangle(width, height, Color.BLACK);
     Movement movement = new Movement();
     Velocity velocity = new Velocity(1.75, 80);
 
@@ -25,14 +24,6 @@ public class Player implements IRender {
         bounds = new Rectangle2D.Double(XPosition, YPosition, width, height);
     }
 
-    public void render(Pane gameScreen) {
-        gameScreen.getChildren().add(view);
-    }
-
-    @Override
-    public void update() {
-        view.toFront();
-    }
 
     public void moveX(Map map, long deltaTime) {
         double newPositionX = movement.getNewPositionX(map, deltaTime, bounds, velocity.getVelocityX());
@@ -77,11 +68,6 @@ public class Player implements IRender {
 
     public double getY() {
         return bounds.getY();
-    }
-
-
-    public Node getView() {
-        return view;
     }
 
 }

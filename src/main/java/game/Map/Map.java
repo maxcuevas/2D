@@ -44,7 +44,7 @@ public class Map {
                 .collect(Collectors.toList());
     }
 
-    public boolean doesMapNeedUpdate(double playerX, double playerY) {
+    public boolean updateMap(double playerX, double playerY) {
         if (!isInValidChunk(playerX, playerY)) {
             mapChunks.add(
                     createChunk(
