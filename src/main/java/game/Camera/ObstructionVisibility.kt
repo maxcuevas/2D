@@ -1,19 +1,23 @@
 package game.Camera
 
-import javafx.scene.Node
+import javafx.geometry.Rectangle2D
+import java.util.*
 
 class ObstructionVisibility {
-    fun isVisible(node: Node, gameScreenWidth: Double, gameScreenHeight: Double): Boolean {
-        return areNodeXsInBounds(node, gameScreenWidth) && areNodeYsInBounds(node, gameScreenHeight)
+    fun isVisible(node: Rectangle2D, gameScreenWidth: Double, gameScreenHeight: Double): Optional<Rectangle2D> {
+        if (areNodeXsInBounds(node, gameScreenWidth) && areNodeYsInBounds(node, gameScreenHeight)) {
+            return Optional.of(node)
+        }
+        return Optional.empty()
     }
 
-    private fun areNodeXsInBounds(node: Node, gameScreenWidth: Double): Boolean {
-        return node.boundsInParent.minX > 0 &&
-                gameScreenWidth > node.boundsInParent.maxX
+    private fun areNodeXsInBounds(node: Rectangle2D, gameScreenWidth: Double): Boolean {
+        return node.minX > 0 &&
+                gameScreenWidth > node.maxX
     }
 
-    private fun areNodeYsInBounds(node: Node, gameScreenHeight: Double): Boolean {
-        return node.boundsInParent.minY > 0 &&
-                gameScreenHeight > node.boundsInParent.maxY
+    private fun areNodeYsInBounds(node: Rectangle2D, gameScreenHeight: Double): Boolean {
+        return node.minY > 0 &&
+                gameScreenHeight > node.maxY
     }
 }

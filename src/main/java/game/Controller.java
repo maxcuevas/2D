@@ -1,5 +1,6 @@
 package game;
 
+import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -8,7 +9,7 @@ import javafx.scene.layout.Pane;
 
 public class Controller {
 
-    public Pane gameScreen;
+    public Canvas gameScreen;
     public Button startButton;
     private GameLoop gameLoop = new GameLoop();
     public Pane mainPane;

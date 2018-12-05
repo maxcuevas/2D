@@ -1,15 +1,15 @@
 package game.Camera
 
-import javafx.scene.shape.Rectangle
+import javafx.geometry.Rectangle2D
 
 class ObstructionMover {
 
-    fun getNodeY(rectangle: Rectangle, offsetAndDeltaY: Double): Double {
-        return rectangle.y + offsetAndDeltaY
+    fun getNodeY(rectangle: Rectangle2D, offsetAndDeltaY: Double): Double {
+        return rectangle.minY + offsetAndDeltaY
     }
 
-    fun getNodeX(rectangle: Rectangle, offsetAndDeltaX: Double): Double {
-        return rectangle.x + offsetAndDeltaX
+    fun getNodeX(rectangle: Rectangle2D, offsetAndDeltaX: Double, offsetAndDeltaY: Double): Rectangle2D {
+        return Rectangle2D(rectangle.minX + offsetAndDeltaX, rectangle.minY + offsetAndDeltaY, rectangle.width, rectangle.height)
     }
 
 

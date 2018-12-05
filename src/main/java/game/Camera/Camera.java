@@ -3,8 +3,9 @@ package game.Camera;
 import game.Entity.Player;
 import game.Map.Map;
 import game.Map.Obstruction;
-import javafx.scene.Node;
-import javafx.scene.layout.Pane;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeType;
@@ -16,18 +17,18 @@ public class Camera {
 
     private static double offsetX;
     private static double offsetY;
-    private double oldPlayerPosY;
-    private double oldPlayerPosX;
     private static double deltaX;
     private static double deltaY;
     private static double gameScreenWidth;
     private static double gameScreenHeight;
+    private double oldPlayerPosY;
+    private double oldPlayerPosX;
     private Rectangle border;
-    private Pane gameScreen;
+    private Canvas gameScreen;
 
     private ObstructionDrawer obstructionDrawer;
 
-    public Camera(Pane gameScreen, Player player, ObstructionDrawer obstructionDrawer) {
+    public Camera(Canvas gameScreen, Player player, ObstructionDrawer obstructionDrawer) {
         this.gameScreen = gameScreen;
         setGameScreenSizes(gameScreen);
         setOffsets(player);
@@ -40,7 +41,7 @@ public class Camera {
         this.obstructionDrawer = obstructionDrawer;
     }
 
-    private void setGameScreenSizes(Pane gameScreen) {
+    private void setGameScreenSizes(Canvas gameScreen) {
         gameScreenWidth = gameScreen.getWidth();
         gameScreenHeight = gameScreen.getHeight();
     }
@@ -70,26 +71,39 @@ public class Camera {
 //        getPlayerDeltas(player);
 
 
-        List<Rectangle> mapTiles = getMapTiles(map);
-        mapTiles.addAll(getMapItems(map));
-        Rectangle playerImage = getPlayer(player);
+//        List<Rectangle2D> mapTiles = getMapTiles(map);
+//        mapTiles.addAll(getMapItems(map));
+        Rectangle2D playerImage = getPlayer(player);
 
-        deltaY = oldPlayerPosY - playerImage.getY();
-        deltaX = oldPlayerPosX - playerImage.getX();
+        deltaY = oldPlayerPosY - playerImage.getMinY();
+        deltaX = oldPlayerPosX - playerImage.getMinX();
 
-        obstructionDrawer.draw(mapTiles, gameScreenWidth,
+        List<Rectangle2D> mapTilesToDraw = obstructionDrawer.draw(getMapTiles(map), gameScreenWidth,
+                gameScreenHeight, offsetY + deltaY,
+                offsetX + deltaX);
+        List<Rectangle2D> mapItemsToDraw = obstructionDrawer.draw(getMapItems(map), gameScreenWidth,
                 gameScreenHeight, offsetY + deltaY,
                 offsetX + deltaX);
 
-        gameScreen.getChildren().clear();
-        gameScreen.getChildren().addAll(mapTiles);
+        GraphicsContext graphicsContext = gameScreen.getGraphicsContext2D();
 
-        Rectangle playerbounds = new Rectangle(gameScreenWidth/2, gameScreenHeight/2, 10, 10);
-        playerbounds.setFill(Color.BLACK);
+        graphicsContext.setFill(Color.WHITE);
+        graphicsContext.fillRect(0, 0, 500, 500);
+        graphicsContext.setFill(Color.GREEN);
 
-        gameScreen.getChildren().add(playerbounds);
+        for (Rectangle2D tile : mapTilesToDraw) {
+            graphicsContext.fillRect(tile.getMinX(), tile.getMinY(), tile.getWidth(), tile.getHeight());
+        }
 
-        gameScreen.getChildren().add(border);
+        graphicsContext.setFill(Color.GRAY);
+
+        for (Rectangle2D tile : mapItemsToDraw) {
+            graphicsContext.fillRect(tile.getMinX(), tile.getMinY(), tile.getWidth(), tile.getHeight());
+        }
+
+        graphicsContext.setFill(Color.BLACK);
+
+        graphicsContext.fillRect(gameScreen.getWidth() / 2, gameScreen.getHeight() / 2, 10, 10);
 
 //        fixPlayerToCenter(playerImage);
 
@@ -97,55 +111,53 @@ public class Camera {
 
         offsetX += deltaX;
         offsetY += deltaY;
-        oldPlayerPosY = playerImage.getY();
-        oldPlayerPosX = playerImage.getX();
+        oldPlayerPosY = playerImage.getMinY();
+        oldPlayerPosX = playerImage.getMinX();
+
+
+
     }
 
-    private Rectangle getPlayer(Player player) {
+    private Rectangle2D getPlayer(Player player) {
 
         double x = player.getX();
         double y = player.getY();
         double width = 10;
         double height = 10;
-        Rectangle playerbounds = new Rectangle(x, y, width, height);
-        playerbounds.setFill(Color.BLACK);
+        Rectangle2D playerbounds = new Rectangle2D(x, y, width, height);
 
         return playerbounds;
     }
 
-    private List<Rectangle> getMapItems(Map map) {
-        List<Rectangle> items = new ArrayList<>();
+    private List<Rectangle2D> getMapItems(Map map) {
+        List<Rectangle2D> items = new ArrayList<>();
 
         for (Obstruction mapItems : map.getMapItems()) {
             double x = mapItems.getBounds().x;
             double y = mapItems.getBounds().y;
             double width = mapItems.getBounds().width;
             double height = mapItems.getBounds().height;
-            Rectangle rectangle = new Rectangle(x, y, width, height);
-            rectangle.setFill(Color.GRAY);
+            Rectangle2D rectangle = new Rectangle2D(x, y, width, height);
             items.add(rectangle);
         }
 
         return items;
     }
 
-    private List<Rectangle> getMapTiles(Map map) {
-        List<Rectangle> mapTiles = new ArrayList<>();
+    private List<Rectangle2D> getMapTiles(Map map) {
+        List<Rectangle2D> mapTiles = new ArrayList<>();
 
         for (Obstruction mapTile : map.getMapTiles()) {
             double x = mapTile.getBounds().x;
             double y = mapTile.getBounds().y;
             double width = mapTile.getBounds().width;
             double height = mapTile.getBounds().height;
-            Rectangle rectangle = new Rectangle(x, y, width, height);
-            rectangle.setFill(Color.GREEN);
+            Rectangle2D rectangle = new Rectangle2D(x, y, width, height);
             mapTiles.add(rectangle);
         }
 
         return mapTiles;
     }
-
-
 
 
 }

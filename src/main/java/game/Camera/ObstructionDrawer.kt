@@ -1,33 +1,26 @@
 package game.Camera
 
-import javafx.scene.Node
-import javafx.scene.shape.Rectangle
+import javafx.geometry.Rectangle2D
 
 class ObstructionDrawer(private val obstructionVisibility: ObstructionVisibility, private val obstructionMover: ObstructionMover) {
-    fun draw(mapTilesAndItems: List<Rectangle>, gameScreenWidth: Double, gameScreenHeight: Double, offsetAndDeltaY: Double, offsetAndDeltaX: Double) {
-        moveNodes(mapTilesAndItems, offsetAndDeltaY, offsetAndDeltaX)
-        setNodesVisibility(mapTilesAndItems, gameScreenWidth, gameScreenHeight)
+    fun draw(mapTilesAndItems: List<Rectangle2D>, gameScreenWidth: Double, gameScreenHeight: Double, offsetAndDeltaY: Double, offsetAndDeltaX: Double): List<Rectangle2D> {
+        val s = setNodesVisibility(mapTilesAndItems, gameScreenWidth, gameScreenHeight)
+        return moveNodes(s, offsetAndDeltaY, offsetAndDeltaX)
     }
 
-    private fun moveNodes(nodes: List<Rectangle>, offsetAndDeltaY: Double, offsetAndDeltaX: Double) {
-        nodes
-                .forEach { obstruction ->
-                    obstruction.x =
+    private fun moveNodes(nodes: List<Rectangle2D>, offsetAndDeltaY: Double, offsetAndDeltaX: Double): List<Rectangle2D> {
+        return nodes
+                .map { obstruction ->
                     obstructionMover.getNodeX(
-                            obstruction ,
-                            offsetAndDeltaX)
+                            obstruction,
+                            offsetAndDeltaX, offsetAndDeltaY)
                 }
 
-        nodes
-                .forEach { obstruction ->
-                    obstruction.y =
-                    obstructionMover.getNodeY(
-                            obstruction ,
-                            offsetAndDeltaY)
-                }
     }
 
-    private fun setNodesVisibility(nodes: List<Node>, gameScreenWidth: Double, gameScreenHeight: Double) {
-        nodes.map { node -> node.isVisible =  obstructionVisibility.isVisible(node, gameScreenWidth, gameScreenHeight) }
+    private fun setNodesVisibility(nodes: List<Rectangle2D>, gameScreenWidth: Double, gameScreenHeight: Double): List<Rectangle2D> {
+        val map = nodes.map { node -> obstructionVisibility.isVisible(node, gameScreenWidth, gameScreenHeight) }
+
+        return map.map { x -> x.get() }
     }
 }
